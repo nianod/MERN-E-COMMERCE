@@ -6,11 +6,16 @@ import { Country, City, State } from "country-state-city";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("")
-  const [country, SetCountry] = useState<any>(Country.getAllCountries())
+  const [countries, SetCountry] = useState<any>(Country.getAllCountries())
 
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
 
-  console.log(country)
+  const handleCountryChange = (isocode: String) => {
+    const country = countries.find((c: any) => c.isocode === isocode)
+    selectedCountry(country)
+  }
+
+  console.log(countries)
 
   const headerStuff = {
     logo: "/download.jpg",
@@ -42,9 +47,12 @@ const Header = () => {
        <div className="hidden md:flex flex-col text-sm mr-6">
         <p className="text-gray-100">Deliver to:</p>
         <span className="font-bold text-white flex items-center gap-1">
-          <select name="country">
+          <select name="country"
+            className="focus:outline-none cursor-pointer max-w-[100px]"
+            onChange={(e) => handleCountryChange(e.target.value)}
+          >
             <option value="Kenya">Kenya</option>
-            {country.map((country: any) => (
+            {countries.map((country: any) => (
               <option className="text-black" key={country.isoCode} value={country.isoCode}>{country.name}</option>
             ))}
           </select>
