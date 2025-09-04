@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { FaSearch, FaUser, FaUserCircle, FaCartPlus } from "react-icons/fa";
-import { ReactCountryFlag } from 'react-country-flag'
+import ReactCountryFlag from "react-country-flag";
 import { Link } from "react-router-dom";
+import { Country, City, State } from "country-state-city";
 
 const Header = () => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>("")
+  const [country, SetCountry] = useState<any>(Country.getAllCountries())
+
+  const [selectedCountry, setSelectedCountry] = useState<any>(null);
+
+  console.log(country)
 
   const headerStuff = {
     logo: "/download.jpg",
@@ -12,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between top-0 fixed w-full bg-[#a1507c] px-4 py-2 shadow-md">
+    <div className="flex items-center justify-between top-0 fixed w-full bg-[#a1507c] px-6 py-3 shadow-md z-50">
        <div className="flex items-center gap-2">
         <img
           src={headerStuff.logo}
@@ -21,35 +27,51 @@ const Header = () => {
         />
         <h2 className="font-bold text-xl text-white">{headerStuff.title}</h2>
       </div>
-      <div className="flex items-center justify-center w-full ml-10 gap-10">
-       <div className="relative flex items-center">
+
+       <div className="flex-1 mx-8 relative flex items-center max-w-lg">
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for a product..."
-          className="p-2 pl-10 w-75 rounded-[2px] bg-white border border-gray-300 text-[#030203] focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 pl-10 w-full rounded bg-white border border-gray-300 text-[#030203] focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <FaSearch className="absolute left-3 text-gray-500" />
       </div>
-      <div>
-        <div>
-          <p>
-            Deliver to: <span className="font-bold text-white flex items-center gap-1"><ReactCountryFlag countryCode="KE" svg /> Kenya</span>
-          </p>
-        </div>
+
+       <div className="hidden md:flex flex-col text-sm mr-6">
+        <p className="text-gray-100">Deliver to:</p>
+        <span className="font-bold text-white flex items-center gap-1">
+          <select name="country">
+            <option value="Kenya">Kenya</option>
+            {country.map((country: any) => (
+              <option className="text-black" key={country.isoCode} value={country.isoCode}>{country.name}</option>
+            ))}
+          </select>
+          {/* <ReactCountryFlag countryCode="KE" svg style={{ width: "1.5em", height: "1.5em" }} /> Kenya */}
+        </span>
       </div>
-      <div className="gap-2 flex ">
-        <Link to={"/register"} className="flex items-center gap-2 p-2 px-2 rounded bg-red-600 text-white font-bold cursor-pointer hover:bg-red-700 transition duration-300">
+
+       <div className="flex gap-3">
+        <Link
+          to="/login"
+          className="flex items-center gap-2 px-3 py-2 rounded bg-red-600 text-white font-bold hover:bg-red-700 transition duration-300"
+        >
           Sign In <FaUser />
         </Link>
-        <Link to={"/register"} className="flex items-center gap-2 p-2 px-2 rounded bg-blue-600 text-white font-bold cursor-pointer hover:bg-blue-700 transition duration-300">
-          Sign up <FaUserCircle/>
+        <Link
+          to="/register"
+          className="flex items-center gap-2 px-3 py-2 rounded bg-blue-600 text-white font-bold hover:bg-blue-700 transition duration-300"
+        >
+          Sign Up <FaUserCircle />
         </Link>
       </div>
-      <div>
+
+       <div className="ml-6 relative cursor-pointer text-white text-2xl">
         <FaCartPlus />
-      </div>
+         <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
+          2
+        </span>
       </div>
     </div>
   );
