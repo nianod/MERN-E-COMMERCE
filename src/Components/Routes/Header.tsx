@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { FaSearch, FaUser, FaUserCircle, FaCartPlus } from "react-icons/fa";
-import ReactCountryFlag from "react-country-flag";
 import { Link } from "react-router-dom";
-import { Country, City, State } from "country-state-city";
+import { Country } from "country-state-city";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("")
@@ -31,18 +30,21 @@ const Header = () => {
           alt={headerStuff.title}
           className="h-10 w-10 rounded-full object-cover"
         />
-        <h2 className="font-bold text-xl text-white">{headerStuff.title}</h2>
+        <Link className="font-bold text-xl text-white" to={'/'}>{headerStuff.title}</Link>
       </div>
 
-       <div className="flex-1 mx-8 relative flex items-center max-w-lg">
+       <div className="flex-1 mx-8 relative gap-2 flex items-center max-w-lg">
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search for a product..."
+          placeholder="Search for products, Brands, Categories..."
           className="p-2 pl-10 w-full rounded bg-white border border-gray-300 text-[#030203] focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <FaSearch className="absolute left-4 text-blue-500 rounded cursor-pointer" />
+        <button className="bg-amber-300 p-2 cursor-pointer text-wgray-700 font-semibold shadow-2xl rounded hover:bg-amber-400 transition duration-300">
+          Search
+        </button>
       </div>
 
        <div className="hidden md:flex flex-col text-sm mr-6">
