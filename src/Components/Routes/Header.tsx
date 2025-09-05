@@ -22,6 +22,7 @@ const Header = () => {
     title: "ARNOLD-SELLERS",
   };
 
+
   return (
     <div className="flex items-center justify-between top-0 fixed w-full bg-[#a1507c] px-6 py-3 shadow-md z-50">
        <div className="flex items-center gap-2">
@@ -41,7 +42,7 @@ const Header = () => {
           placeholder="Search for a product..."
           className="p-2 pl-10 w-full rounded bg-white border border-gray-300 text-[#030203] focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <FaSearch className="absolute left-3 text-gray-500" />
+        <FaSearch className="absolute left-4 text-blue-500 rounded cursor-pointer" />
       </div>
 
        <div className="hidden md:flex flex-col text-sm mr-6">
