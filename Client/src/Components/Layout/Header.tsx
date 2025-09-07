@@ -9,7 +9,7 @@ const Header = () => {
   const [countries, SetCountry] = useState<any>(Country.getAllCountries())
 
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
-  const [siteMenu, setSideMenu] = useState<boolean>(false)
+  const [openCart, setOpenCart] = useState<boolean>(false)
 
   const handleCountryChange = (isocode: String) => {
     const country = countries.find((c: any) => c.isocode === isocode)
@@ -79,12 +79,14 @@ const Header = () => {
         </Link>
       </div>
 
-       <div className="ml-6 relative cursor-pointer text-white text-2xl">
+       <button className="ml-6 relative cursor-pointer text-white text-2xl"
+        onClick={() => setOpenCart(true)}
+       >
         <FaCartPlus />
          <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
           2
         </span>
-      </div>
+      </button>
       <SideCart openCart={openCart} setOpenCart={setOpenCart}/>
     </div>
   );
