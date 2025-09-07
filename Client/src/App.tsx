@@ -1,8 +1,8 @@
-import Home from "./Components/Home"
-import Layout from "./Components/Routes/Layout"
+import Home from "./Pages/Home"
+import Layout from "./Components/Layout/Layout"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import Signup from "./Components/Auth/Signup"
-import Signin from "./Components/Auth/Signin"
+import Signup from "./Pages/Auth/Signup"
+import Signin from "./Pages/Auth/Signin"
 
 const App = () => {
 
