@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { FaSearch, FaUser, FaUserCircle, FaCartPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Country } from "country-state-city";
+import { Country } from "country-state-city"
+import SideCart from "../SideCart";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("")
   const [countries, SetCountry] = useState<any>(Country.getAllCountries())
 
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
+  const [siteMenu, setSideMenu] = useState<boolean>(false)
 
   const handleCountryChange = (isocode: String) => {
     const country = countries.find((c: any) => c.isocode === isocode)
@@ -59,7 +61,6 @@ const Header = () => {
               <option className="text-black" key={country.isoCode} value={country.isoCode}>{country.name}</option>
             ))}
           </select>
-          {/* <ReactCountryFlag countryCode="KE" svg style={{ width: "1.5em", height: "1.5em" }} /> Kenya */}
         </span>
       </div>
 
@@ -84,6 +85,7 @@ const Header = () => {
           2
         </span>
       </div>
+      <SideCart openCart={openCart} setOpenCart={setOpenCart}/>
     </div>
   );
 };
