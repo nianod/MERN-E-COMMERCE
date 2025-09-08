@@ -7,31 +7,25 @@ const AdminAuth = () => {
   const [error, setError] = useState<string>("")
 
   const submit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     setLoading(true)
     setError("")
-    
-    const ADMIN_PASSCODE: number = 12345
-    setTimeout (() => {
-    if(passcode !== ADMIN_PASSCODE) {
-      setError('Unkown Passcode')
-      setLoading(false)
-      return
-    } else {
-      setSuccess('Verified, Redirecting to Admin Dashboard')
-      setLoading(true)
-    }
-    }, 1000)
+    setSuccess("");
 
-    // setTimeout(() => {
-    //   if (passcode === ADMIN_PASSCODE) {
-    //     alert("✅ Verified! Redirecting to Admin Dashboard...");
-    //     // Example: navigate("/admin/dashboard");
-    //   } else {
-    //     setError("❌ Incorrect passcode");
-    //   }
-    //   setLoading(false);
-    // }, 1000);
+    const ADMIN_PASSCODE: string = "12345";  
+
+    setTimeout(() => {
+      if (passcode !== ADMIN_PASSCODE) {
+        setError("Unknown Passcode")
+        setLoading(false)
+        return;
+      }
+      setSuccess("Verified, Redirecting to Admin Dashboard...")
+      setLoading(false);
+
+      
+      // navigate("/admin/dashboard");
+    }, 1000);
   };
 
   return (
@@ -49,7 +43,7 @@ const AdminAuth = () => {
           />
 
           {error && <p className="text-red-600 mt-1">{error}</p>}
-          {success && <p className="text-green-600 mt-1">{error}</p>} 
+          {success && <p className="text-green-600 mt-1">{success}</p>}
 
           <button
             type="submit"
