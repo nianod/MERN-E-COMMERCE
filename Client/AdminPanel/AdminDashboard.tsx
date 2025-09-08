@@ -1,4 +1,4 @@
-import { FaHome, FaUser, FaInbox, FaShoppingCart, FaLayerGroup, FaBox } from "react-icons/fa";
+import { FaHome, FaUser, FaInbox, FaShoppingCart, FaLayerGroup, FaBox, FaGrinHearts, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 type MenuItem = {
@@ -31,9 +31,13 @@ const AdminDashboard = () => {
             {menu.icon} {menu.label}
           </Link>
         ))}
+        <div>
+          <span><FaGrinHearts />Settings</span>
+          <span> <FaSignOutAlt/>Log Out</span>
+        </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default AdminDashboard;
