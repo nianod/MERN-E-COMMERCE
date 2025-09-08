@@ -1,6 +1,6 @@
 type SideCartProps = {
   openCart: boolean;
-  setOpenCart: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCart: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
@@ -17,10 +17,15 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
           openCart ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <h2>Your Cart</h2>
+        <button className="absolute top-1 text-gray-700 font-bold right-2 cursor-pointer hover:rotate-90 transition-transform duration-300"
+          onClick={() => setOpenCart(false)}
+        >
+           ╳
+        </button>
+        <h2 className="font-semibold mt-4 text-center">Your Cart</h2>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SideCart;
+export default SideCart
