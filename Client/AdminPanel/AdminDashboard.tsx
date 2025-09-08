@@ -1,4 +1,4 @@
-import { FaHome, FaUser, FaInbox, FaShoppingCart, FaLayerGroup, FaBox, FaGrinHearts, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaUser, FaInbox, FaShoppingCart, FaLayerGroup, FaBox, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 type MenuItem = {
@@ -18,7 +18,7 @@ const menuItems: MenuItem[] = [
 
 const AdminDashboard = () => {
   return (
-    <div className="bg-black text-white w-64 min-h-screen p-4">
+    <div className="bg-black text-white w-64 min-h-screen p-3">
       <h1 className="font-bold text-2xl mb-6">Admin Dashboard</h1>
       <span className="font-semibold block mb-3">Menu</span>
       <div className="flex flex-col gap-2">
@@ -26,14 +26,14 @@ const AdminDashboard = () => {
           <Link
             key={index}
             to={menu.to}
-            className="p-3 flex items-center gap-2 rounded hover:bg-gray-800 hover:text-blue-400 transition"
+            className="p-[8px] flex items-center gap-2 rounded hover:bg-gray-800 hover:text-blue-400 transition"
           >
             {menu.icon} {menu.label}
           </Link>
         ))}
-        <div>
-          <span><FaGrinHearts />Settings</span>
-          <span> <FaSignOutAlt/>Log Out</span>
+        <div className="mt-24">
+          <button className="cursor-pointer flex items-center gap-2 p-2 rounded hover:bg-gray-800 hover:text-blue-400 transition w-full"><FaCog />Settings</button>
+          <button className="cursor-pointer flex items-center gap-2 p-2 rounded hover:bg-gray-800 hover:text-blue-400 transition w-full"><FaSignOutAlt/>Log Out</button>
         </div>
       </div>
     </div>
