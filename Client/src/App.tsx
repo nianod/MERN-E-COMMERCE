@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Signup from "./Pages/Auth/Signup"
 import Signin from "./Pages/Auth/Signin"
 import AdminAuth from "../AdminPanel/AdminAuth"
+import AdminDashboard from "../AdminPanel/AdminDashboard"
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="register" element={<Signup />} />
           <Route path="login" element={<Signin/>} />
           <Route path="admin" element={<AdminAuth/>} />
+          <Route path="admin/dashboard" element={<AdminDashboard/>} />
         </Routes>
       </Router>
   )

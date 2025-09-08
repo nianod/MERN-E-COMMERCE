@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from "react"
+import { useNavigate } from 'react-router-dom'
 
 const AdminAuth = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -6,8 +7,10 @@ const AdminAuth = () => {
   const [success, setSuccess] = useState<string>("")
   const [error, setError] = useState<string>("")
 
+  const navigate = useNavigate()
+
   const submit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     setLoading(true)
     setError("")
     setSuccess("");
@@ -21,10 +24,9 @@ const AdminAuth = () => {
         return;
       }
       setSuccess("Verified, Redirecting to Admin Dashboard...")
-      setLoading(false);
+      setLoading(false)
+      navigate("/admin/dashboard")
 
-      
-      // navigate("/admin/dashboard");
     }, 1000);
   };
 
