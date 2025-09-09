@@ -13,6 +13,8 @@ import Categories from "../AdminPanel/Pages/Categories"
 import Users from "../AdminPanel/Pages/Users"
 import Messages from '../AdminPanel/Pages/Messages'
 import MiniDashboard from '../AdminPanel/Pages/MiniDashboard'
+import ManageAccount from '../AdminPanel/Pages/ManageAccount'
+import Settings from '../AdminPanel/Pages/Settings'
 
 const App = () => {
   return (
@@ -31,6 +33,8 @@ const App = () => {
           <Route path="orders" element={<Orders />} />
           <Route path="categories" element={<Categories />} />
           <Route path="users" element={<Users />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="manage" element={<ManageAccount />} />
         </Route>
       </Routes>
     </Router>
