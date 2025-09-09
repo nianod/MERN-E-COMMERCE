@@ -1,5 +1,5 @@
 import { FaHome, FaUser, FaInbox, FaShoppingCart, FaLayerGroup, FaBox, FaCog, FaSignOutAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 type MenuItem = {
   to: string;
@@ -8,12 +8,12 @@ type MenuItem = {
 };
 
 const menuItems: MenuItem[] = [
-  { to: '/main/panel', label: "Dashboard", icon: <FaHome /> },
-  { to: '/users', label: "Users", icon: <FaUser /> },
-  { to: '/products', label: "Products", icon: <FaBox /> },
-  { to: '/orders', label: "Orders", icon: <FaShoppingCart /> },
-  { to: '/messages', label: "Messages", icon: <FaInbox /> },
-  { to: '/categories', label: "Categories", icon: <FaLayerGroup /> },
+  { to: 'minidashboard', label: "Dashboard", icon: <FaHome /> },
+  { to: 'users', label: "Users", icon: <FaUser /> },
+  { to: 'products', label: "Products", icon: <FaBox /> },
+  { to: 'orders', label: "Orders", icon: <FaShoppingCart /> },
+  { to: 'messages', label: "Messages", icon: <FaInbox /> },
+  { to: 'categories', label: "Categories", icon: <FaLayerGroup /> },
 ];
 
 const AdminDashboard = () => {
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
       </div>
     </div>
     <div>
-        <h3>Arnold Sellers</h3>
+        <Outlet />
     </div>
     </div>
     </>
