@@ -25,7 +25,7 @@ const AdminAuth = () => {
       }
       setSuccess("Verified, Redirecting to Admin Dashboard...")
       setLoading(false)
-      navigate("/admin/dashboard")
+      navigate("/admin")
 
     }, 1000);
   };
