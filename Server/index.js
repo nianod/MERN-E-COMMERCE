@@ -1,6 +1,10 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from 'dotenv'
+// import express from "express";
+// import mongoose from "mongoose";
+// import dotenv from 'dotenv'
+
+const express = require('express')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 
 const app = express()
 dotenv.config() 
@@ -14,5 +18,5 @@ mongoose.connect(MONGO).then(() => {
         console.log(`App running on port ${PORT}`)
     })
 }).catch((error) => {
-    console.log('Error occured ', error)
+    console.log('Database connection failed', error.message)
 })

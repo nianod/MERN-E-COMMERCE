@@ -5,8 +5,6 @@ import Signup from "./Pages/Auth/Signup";
 import Signin from "./Pages/Auth/Signin";
 import AdminAuth from "../AdminPanel/AdminAuth";
 import AdminDashboard from "../AdminPanel/AdminDashboard";
-
- 
 import Products from "../AdminPanel/Pages/Products"
 import Orders from "../AdminPanel/Pages/Orders"
 import Categories from "../AdminPanel/Pages/Categories"
