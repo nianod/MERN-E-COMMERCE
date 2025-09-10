@@ -16,5 +16,15 @@ const productSchema = mongoose.Schema(
             required: true,
             default: 0
         },
+        image: {
+            type: String,
+            required: true
+        }
+    },
+    {
+        Timestamp: true
     }
 )
+
+const Product = mongoose.model('Product', productSchema)
+module.exports = Product
