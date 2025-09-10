@@ -17,6 +17,9 @@ mongoose.connect(MONGO).then(() => {
     app.listen(PORT, () => {
         console.log(`App running on port ${PORT}`)
     })
+    app.get('/', (res, req) => {
+        res.send('Hello From NODE API')
+    })
 }).catch((error) => {
     console.log('Database connection failed', error.message)
 })
