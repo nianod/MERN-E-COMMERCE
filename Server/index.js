@@ -1,32 +1,70 @@
-// import express from "express";
+// import express, { request } from "express";
 // import mongoose from "mongoose";
 // import dotenv from 'dotenv'
 
 const express = require('express')
-const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const product = require('./models.product.model.js')
+const mongoose = require('mongoose')
+
+const Product = require('./models/Product.models.js')
 
 const app = express()
 dotenv.config() 
 
-app.use(express.json())
+app.use(express.json()) //Middleware
 
 const PORT = process.env.PORT || 7000
 const MONGO = process.env.MONGO_URL
 
-app.post('/api/products', (request, response) => {
+app.post('/api/products', async (request, response) => {
     // console.log(request.body)
     // response.send('Data received')
     try {
+        const product = await Product.create(request.body)
+        response.status(500).json(product)
+    } catch(error) {
+        response.status(200).json({message: error.message})
+    }
+})
 
+app.get('/api/products', async (request, response) => {
+    try {
+        const product = await Product.find({})
+        response.status(200).json(product)
     } catch(error) {
         response.status(500).json({message: error.message})
     }
 })
+ 
+app.get('/api/product/id', async(request, response) => {
+    try {
+        const { id } = request.params
+        const product = await Product.findById(id)
+        response.status(200).json(product)
+    } catch (error) {
+        response.status(500).json({ message: error.message })
+    }
+})
+
+
+app.put('/api/product/:id', async(request, response) => {
+    try {
+        const { id } = request.params
+
+        const product = await Product.findAndUpdateById(id, request.body)
+
+        if(!product) {
+            return response.status(404).json({ message: "Product not found"})
+        }
+    } catch (error) {
+        const updateProduct = await Product.findById(id)
+        response.status(201).json(updateProduct)
+    }
+})
+
+
 
 mongoose.connect(MONGO).then(() => {
-    console.log('Database connected successfully')
     app.listen(PORT, () => {
         console.log(`App running on port ${PORT}`)
     })
