@@ -12,6 +12,9 @@ const app = express()
 dotenv.config() 
 
 app.use(express.json()) //Middleware
+app.use(express.urlencoded({extended: false }))
+
+app.use('/api/products', productRoute)
 
 const PORT = process.env.PORT || 7000
 const MONGO = process.env.MONGO_URL
@@ -27,6 +30,7 @@ app.post('/api/products', async (request, response) => {
     }
 })
 
+//controller
 app.get('/api/products', async (request, response) => {
     try {
         const product = await Product.find({})
