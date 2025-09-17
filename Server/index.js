@@ -51,7 +51,7 @@ app.put('/api/product/:id', async(request, response) => {
     try {
         const { id } = request.params
 
-        const product = await Product.findAndUpdateById(id, request.body)
+        const product = await Product.findByIdAndUpdate(id, request.body)
 
         if(!product) {
             return response.status(404).json({ message: "Product not found"})
@@ -62,6 +62,20 @@ app.put('/api/product/:id', async(request, response) => {
     }
 })
 
+ app.delete('/api/product/:id', async(request, response) => {
+    try {
+        const { id } = request.params
+
+        const product = await Product.findByIdAndDelete(id.request.body)
+
+        if(!product) {
+            return response.status(200).json({ message: "Product deleted successfully"})
+        }
+        
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+ })
 
 
 mongoose.connect(MONGO).then(() => {
