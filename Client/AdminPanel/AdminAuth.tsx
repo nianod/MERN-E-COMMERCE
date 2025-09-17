@@ -13,9 +13,9 @@ const AdminAuth = () => {
     e.preventDefault()
     setLoading(true)
     setError("")
-    setSuccess("");
+    setSuccess("")
 
-    const ADMIN_PASSCODE: string = "12345";  
+    const ADMIN_PASSCODE: string = "12345"
 
     setTimeout(() => {
       if (passcode !== ADMIN_PASSCODE) {
