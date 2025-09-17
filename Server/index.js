@@ -51,7 +51,7 @@ app.put('/api/product/:id', async(request, response) => {
     try {
         const { id } = request.params
 
-        const product = await Product.findByIdAndUpdate(id, request.body)
+        const product = await Product.findByIdAndUpdate(id, request.body, { new: true })
 
         if(!product) {
             return response.status(404).json({ message: "Product not found"})
@@ -66,14 +66,15 @@ app.put('/api/product/:id', async(request, response) => {
     try {
         const { id } = request.params
 
-        const product = await Product.findByIdAndDelete(id.request.body)
+        const product = await Product.findByIdAndDelete(id)
 
         if(!product) {
-            return response.status(200).json({ message: "Product deleted successfully"})
+            return response.status(404).json({ message: "Product not found" })
         }
+        response.status(200).json({ message: "Product deleted successfully"})
         
     } catch (error) {
-        res.status(500).json({message: error.message})
+        response.status(500).json({message: error.message})
     }
  })
 
