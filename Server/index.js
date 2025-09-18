@@ -5,7 +5,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
-
+const productRoute = require('./Routes/productRoute.js')
 const Product = require('./models/Product.models.js')
 
 const app = express()
@@ -31,14 +31,14 @@ app.post('/api/products', async (request, response) => {
 })
 
 //controller
-app.get('/api/products', async (request, response) => {
-    try {
-        const product = await Product.find({})
-        response.status(200).json(product)
-    } catch(error) {
-        response.status(500).json({message: error.message})
-    }
-})
+// app.get('/api/products', async (request, response) => {
+//     try {
+//         const product = await Product.find({})
+//         response.status(200).json(product)
+//     } catch(error) {
+//         response.status(500).json({message: error.message})
+//     }
+// })
  
 app.get('/api/product/id', async(request, response) => {
     try {
