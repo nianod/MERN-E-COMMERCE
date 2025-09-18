@@ -20,8 +20,6 @@ const PORT = process.env.PORT || 7000
 const MONGO = process.env.MONGO_URL
 
 app.post('/api/products', async (request, response) => {
-    // console.log(request.body)
-    // response.send('Data received')
     try {
         const product = await Product.create(request.body)
         response.status(500).json(product)
