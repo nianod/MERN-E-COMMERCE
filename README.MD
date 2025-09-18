@@ -3,6 +3,8 @@
 A full-stack **E-Commerce web application** built with the **MERN stack** + **TypeScript (TSX)**.  
 Includes **JWT authentication, user roles, admin dashboard, product management, and order tracking**.  
 
+**CRUD API** implemented
+
 🚀 **Modern. Scalable. Secure.**  
 
 ---
