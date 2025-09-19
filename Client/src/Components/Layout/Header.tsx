@@ -16,7 +16,7 @@ const Header = () => {
     selectedCountry(country)
   }
 
-  console.log(countries)
+  // console.log(countries)
 
   const headerStuff = {
     logo: "/download.jpg",

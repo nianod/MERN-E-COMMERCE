@@ -5,7 +5,7 @@ const Home = () => {
   const [products, setProducts] = useState<Product[]>([])
 
   interface Product  {
-    id: string,
+    _id: string,
     name: string,
     quantity: number,
     price: number,
@@ -26,7 +26,16 @@ const Home = () => {
   }, [])
 
   return (
-    <div>Home</div>
+    <div>
+      <h2>Available products</h2>
+      <div>
+        <ul>
+          {products.map(product =>(
+            <li key={product._id}>{product.name} - {product.price}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
   )
 }
 
