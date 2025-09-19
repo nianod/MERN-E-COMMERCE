@@ -8,8 +8,14 @@ const Products = () => {
   const [error, setError] = useState<string>('')
  
   const submit = (e: any) => {
+    if(error) {
+      setError(error)
+      setLoading(false)
+      return
+    } else
     e.preventDefault()
     setLoading(true)
+    setError('')
   }
 
   return (
@@ -55,6 +61,9 @@ const Products = () => {
             required
           />
         </div>
+        {error && (
+          <p className="text-center text-red-500 text-sm mt-1">{error}</p>
+        )}
         <button
           type="submit"
           disabled={loading}
