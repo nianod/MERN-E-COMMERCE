@@ -19,7 +19,8 @@ const Products = () => {
   }
 
   return (
-    <div className="border max-w-md p-6 bg-white rounded-lg shadow-md mb-20 mt-20 m-auto max-h-[570px]">
+    <div className="flex items-center">
+    <div className="border max-w-md w-full p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-center font-bold text-xl">Add a product</h2>
       <form onSubmit={submit}>
         <div className="mb-4">
@@ -71,6 +72,7 @@ const Products = () => {
           {loading ? "Adding..." : "Add a Product"}
         </button>
       </form>
+    </div>
     </div>
   );
 };
