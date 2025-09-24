@@ -24,9 +24,9 @@ const MONGO = process.env.MONGO_URL
 app.post('/api/products', async (request, response) => {
     try {
         const product = await Product.create(request.body)
-        response.status(500).json(product)
+        response.status(201).json(product)
     } catch(error) {
-        response.status(200).json({message: error.message})
+        response.status(500).json({message: error.message})
     }
 })
 
