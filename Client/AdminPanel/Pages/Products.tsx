@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import axios from "axios";
 
 const Products = () => {
@@ -9,11 +9,24 @@ const Products = () => {
   const [error, setError] = useState<string>('')
   const [quantity, setQuantity] = useState<string>('')
  
-  useEffect(() => {
+
     const insertToMongo = async () => {
-      await axios.post('http://localhost:8000/api/products')
+      try {
+        await axios.post('http://localhost:8000/api/products', {
+          name,
+          quantity,
+          price,
+          image
+        })
+        alert("Added successully")
+      } catch (error: any) {
+        setError(error.response?.data.message || "Something went wrong here brother")
+      } finally {
+        setLoading(false)
+      }
+      
     }
-  })
+  
 
 
   const submit = (e: any) => {
