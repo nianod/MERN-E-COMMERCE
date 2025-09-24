@@ -6,9 +6,11 @@ const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const productRoute = require('./Routes/productRoute.js')
-const Product = require('./models/Product.models.js')
+const Product = require('./Models/Product.models.js')
+const cors = require('cors')
 
 const app = express()
+app.use(cors())
 dotenv.config() 
 
 app.use(express.json()) //Middleware

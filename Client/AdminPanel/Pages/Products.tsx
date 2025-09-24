@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react"
+import axios from "axios";
 
 const Products = () => {
   const [name, setName] = useState<string>('')
@@ -6,7 +7,15 @@ const Products = () => {
   const [price, setPrice] = useState<any>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
+  const [quantity, setQuantity] = useState<string>('')
  
+  useEffect(() => {
+    const insertToMongo = async () => {
+      await axios.post('http://localhost:8000/api/products')
+    }
+  })
+
+
   const submit = (e: any) => {
     if(error) {
       setError(error)
@@ -16,6 +25,7 @@ const Products = () => {
     e.preventDefault()
     setLoading(true)
     setError('')
+    insertToMongo()
   }
 
   return (
@@ -33,6 +43,19 @@ const Products = () => {
             onChange={(e) => setName(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="enter item name"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-black mb-2">
+            Quantity:
+          </label>
+          <input
+            type="text"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="enter item quantity"
             required
           />
         </div>
