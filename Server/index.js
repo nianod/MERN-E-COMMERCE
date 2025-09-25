@@ -83,7 +83,10 @@ app.put('/api/product/:id', async(request, response) => {
  })
 
 
-mongoose.connect(MONGO).then(() => {
+mongoose.connect(MONGO, {
+    dbName: "ecommerce-db",
+})
+.then(() => {
     app.listen(PORT, () => {
         console.log(`App running on port ${PORT}`)
     })

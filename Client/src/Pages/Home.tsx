@@ -16,11 +16,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts()
   }, []);
 
   return (
-    <div> 
+    <div className="flex items-center justify-center flex-col overflow-x-hidden mt-20">
+    <div className="grid md:grid-cols-4 sm:grid-cols-1 gap-9 px-3 py-5"> 
       {products.map((product) => (
         <div key={product._id}>
           <img src={product.image}/>
@@ -28,6 +29,7 @@ const Home = () => {
           <span>{product.price}</span>
         </div>
       ))}
+    </div>
     </div>
   );
 };

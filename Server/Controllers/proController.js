@@ -28,6 +28,8 @@ const getProduct = async (request, response) => {
     }
 }
 
+
+
 const deleteProduct = async (request, response) => {
     try {
         const { id } = request.params
