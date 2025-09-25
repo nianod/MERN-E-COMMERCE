@@ -39,6 +39,10 @@ const Products = () => {
     setLoading(true)
     setError('')
     insertToMongo()
+    setName("")
+    setImage("")
+    setPrice(0)
+    setQuantity("")
   }
 
   return (
