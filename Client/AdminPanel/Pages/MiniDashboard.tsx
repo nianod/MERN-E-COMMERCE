@@ -89,7 +89,7 @@ const MiniDashboard = () => {
           </div>
           <Link 
             to="/admin/dashboard/products"
-            className="flex items-center gap-1.5"
+            className="flex items-center gap-1.5 bg-green-600 p-2 px-5 rounde hover:bg-green-700 transition te"
           >
             Add More Products <FaPlus />
           </Link>
