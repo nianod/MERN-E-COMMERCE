@@ -1,8 +1,9 @@
 import type { Product } from "../../src/Types/Product";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { FaPen, FaTrash, FaRoad } from "react-icons/fa";
-import { DeleteProduct } from "./DeleteProduct";
+import { FaPen, FaTrash, FaRoad, FaPlus } from "react-icons/fa";
+import { DeleteProduct } from "./DeleteProduct"
+import { Link } from "react-router-dom";
 
 const MiniDashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -86,6 +87,12 @@ const MiniDashboard = () => {
               </div>
             ))}
           </div>
+          <Link 
+            to="/admin/dashboard/products"
+            className="flex items-center gap-1.5"
+          >
+            Add More Products <FaPlus />
+          </Link>
         </div>
       </div>
 
