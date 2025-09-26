@@ -7,7 +7,7 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
   return (
     <div>
       {openCart && (
-        <div
+        <div 
           className="fixed inset-0 z-20 backdrop-blur-2xl"
           onClick={() => setOpenCart(false)}
         ></div> 

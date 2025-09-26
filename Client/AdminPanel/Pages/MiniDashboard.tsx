@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { FaPen, FaTrash, FaRoad } from "react-icons/fa";
 
 const MiniDashboard = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([])
+  const [confirmDelete, setconfirmDelete] = useState<boolean>(false)
 
   const fetchProducts = async () => {
     try {
@@ -39,9 +40,9 @@ const MiniDashboard = () => {
     
   }
   return (
+    <>
     <div>
-      <p>MiniDashboard</p>
-      <h2>Available Products to the clients</h2>
+      <h2 className="text-center text-lg font-bold text-green-300">Available Products to the clients</h2>
       <div className="flex items-center justify-center flex-col overflow-x-hidden">
         <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">
           {products.map((product) => (
@@ -58,21 +59,21 @@ const MiniDashboard = () => {
               <div className="flex">
                 <button
                   onClick={editProduct}
-                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer transition-colors duration-500"
+                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer hover:text-gray-300 duration-200"
                   title="Edit"
                 >
                   <FaPen />
                 </button>
                 <button
                   onClick={() => deleteProduct(product._id)}
-                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer transition-colors duration-500"
+                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer hover:text-gray-300 duration-200"
                   title="Delete"
                 >
                   <FaTrash />
                 </button>
                 <button 
                   onClick={pinProduct}
-                  className=" p-2 px-2 w-full text-gray-400  font-bold cursor-pointer transition-colors duration-500"
+                  className=" p-2 px-2 w-full text-gray-400  font-bold cursor-pointer hover:text-gray-300 duration-200"
                   title="Pin to top"
                 >
                   <FaRoad />
@@ -83,6 +84,7 @@ const MiniDashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
