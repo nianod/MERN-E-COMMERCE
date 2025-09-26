@@ -25,7 +25,7 @@ const MiniDashboard = () => {
     <div>
       <p>MiniDashboard</p>
       <h2>Available Products to the clients</h2>
-      <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16">
+      <div className="flex items-center justify-center flex-col overflow-x-hidden">
         <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">
           {products.map((product) => (
             <div key={product._id} className="">
@@ -38,14 +38,26 @@ const MiniDashboard = () => {
                 <span>{product.name}</span>-{" "}
                 <span className="text-gray-400 text-sm">$ {product.price}</span>
               </p>
-              <div>
-                <button className=" p-2 px-2 w-full text-white font-bold cursor-pointer transition-colors duration-500">
+              <div className="flex">
+                <button
+                  onClick={edit}
+                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer transition-colors duration-500"
+                  title="Edit"
+                >
                   <FaPen />
                 </button>
-                <button className=" p-2 px-2 w-full text-white font-bold cursor-pointer transition-colors duration-500">
+                <button
+                  onClick={delete}
+                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer transition-colors duration-500"
+                  title="Delete"
+                >
                   <FaTrash />
                 </button>
-                <button className=" p-2 px-2 w-full text-white font-bold cursor-pointer transition-colors duration-500">
+                <button 
+                  onClick={Pin}
+                  className=" p-2 px-2 w-full text-gray-400  font-bold cursor-pointer transition-colors duration-500"
+                  title="Pin to top"
+                >
                   <FaRoad />
                 </button>
               </div>
