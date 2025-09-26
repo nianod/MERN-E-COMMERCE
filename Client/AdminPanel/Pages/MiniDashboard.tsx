@@ -2,10 +2,12 @@ import type { Product } from "../../src/Types/Product";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { FaPen, FaTrash, FaRoad } from "react-icons/fa";
+import { DeleteProduct } from "./DeleteProduct";
 
 const MiniDashboard = () => {
-  const [products, setProducts] = useState<Product[]>([])
-  const [confirmDelete, setconfirmDelete] = useState<boolean>(false)
+  const [products, setProducts] = useState<Product[]>([]);
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
 
   const fetchProducts = async () => {
     try {
@@ -13,7 +15,6 @@ const MiniDashboard = () => {
         "http://localhost:8000/api/products"
       );
       setProducts(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("error occurred", error);
     }
@@ -23,67 +24,78 @@ const MiniDashboard = () => {
     fetchProducts();
   }, []);
 
-  const editProduct = () => {
+  const editProduct = () => {};
 
-  }
-
-    const deleteProduct = async (id: string) => {
-      try {
-        await axios.delete(`http://localhost:8000/api/products/${id}`)
-        setProducts((prev) => prev.filter((product) => product._id !== id))
-      } catch(err) {
-        console.error('A certainerror occurred')
-      }
+  const deleteProduct = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/products/${id}`);
+      setProducts((prev) => prev.filter((product) => product._id !== id));
+      setConfirmDelete(false);
+    } catch (err) {
+      console.error("A certain error occurred", err);
     }
+  };
 
-    const pinProduct = () => {
-    
-  }
+  const pinProduct = () => {};
+
   return (
     <>
-    <div>
-      <h2 className="text-center text-lg font-bold text-green-300">Available Products to the clients</h2>
-      <div className="flex items-center justify-center flex-col overflow-x-hidden">
-        <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">
-          {products.map((product) => (
-            <div key={product._id} className="">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="h-50 rounded w-50 object-cover"
-              />
-              <p className="text-md text-white font-semibold capitalize ">
-                <span>{product.name}</span>-{" "}
-                <span className="text-gray-400 text-sm">$ {product.price}</span>
-              </p>
-              <div className="flex">
-                <button
-                  onClick={editProduct}
-                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer hover:text-gray-300 duration-200"
-                  title="Edit"
-                >
-                  <FaPen />
-                </button>
-                <button
-                  onClick={() => deleteProduct(product._id)}
-                  className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer hover:text-gray-300 duration-200"
-                  title="Delete"
-                >
-                  <FaTrash />
-                </button>
-                <button 
-                  onClick={pinProduct}
-                  className=" p-2 px-2 w-full text-gray-400  font-bold cursor-pointer hover:text-gray-300 duration-200"
-                  title="Pin to top"
-                >
-                  <FaRoad />
-                </button>
+      <div>
+        <h2 className="text-center text-lg font-bold text-green-300">
+          Available Products to the clients
+        </h2>
+        <div className="flex items-center justify-center flex-col overflow-x-hidden">
+          <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">
+            {products.map((product) => (
+              <div key={product._id} className="">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="h-50 rounded w-50 object-cover"
+                />
+                <p className="text-md text-white font-semibold capitalize ">
+                  <span>{product.name}</span>-{" "}
+                  <span className="text-gray-400 text-sm">$ {product.price}</span>
+                </p>
+                <div className="flex">
+                  <button
+                    onClick={editProduct}
+                    className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer hover:text-gray-300 duration-200"
+                    title="Edit"
+                  >
+                    <FaPen />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedProductId(product._id);
+                      setConfirmDelete(true);
+                    }}
+                    className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer hover:text-gray-300 duration-200"
+                    title="Delete"
+                  >
+                    <FaTrash />
+                  </button>
+                  <button
+                    onClick={pinProduct}
+                    className=" p-2 px-2 w-full text-gray-400  font-bold cursor-pointer hover:text-gray-300 duration-200"
+                    title="Pin to top"
+                  >
+                    <FaRoad />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+      <DeleteProduct
+        confirmDelete={confirmDelete}
+        setConfirmDelete={setConfirmDelete}
+        onConfirm={() => {
+          if (selectedProductId) deleteProduct(selectedProductId);
+        }}
+      />
     </>
   );
 };
