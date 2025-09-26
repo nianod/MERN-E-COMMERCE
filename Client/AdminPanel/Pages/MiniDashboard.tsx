@@ -46,7 +46,7 @@ const MiniDashboard = () => {
           Available Products to the clients
         </h2>
         <div className="flex items-center justify-center flex-col overflow-x-hidden">
-          <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">
+          <div className="grid md:grid-cols-5 sm:grid-cols-1 gap-9 px-3 py-5">
             {products.map((product) => (
               <div key={product._id} className="">
                 <img
