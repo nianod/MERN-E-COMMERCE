@@ -9,8 +9,8 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
   { to: 'minidashboard', label: "Dashboard", icon: <FaHome /> },
+   { to: 'products', label: "Products", icon: <FaBox /> },
   { to: 'users', label: "Users", icon: <FaUser /> },
-  { to: 'products', label: "Products", icon: <FaBox /> },
   { to: 'orders', label: "Orders", icon: <FaShoppingCart /> },
   { to: 'messages', label: "Messages", icon: <FaInbox /> },
   { to: 'categories', label: "Categories", icon: <FaLayerGroup /> },
@@ -20,9 +20,9 @@ const AdminDashboard = () => {
   return (
     <>
       <div className="flex">
-        <div className="bg-black text-white w-64 min-h-screen p-3">
+        <div className="bg-black text-white w-80 min-h-screen p-3">
           <h1 className="font-bold text-2xl mb-6">Admin Dashboard</h1>
-          <span className="font-semibold block mb-3">Menu</span>
+          <span className="font-semibold block mb-3 text-blue-300">Menu</span>
           <div className="flex flex-col gap-2">
             {menuItems.map((menu, index) => (
               <Link
