@@ -21,6 +21,23 @@ const MiniDashboard = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const editProduct = () => {
+
+  }
+
+    const deleteProduct = async (id: string) => {
+      try {
+        await axios.delete(`http://localhost:8000/api/products/${id}`)
+        setProducts((prev) => prev.filter((product) => product._id !== id))
+      } catch(err) {
+        console.error('A certainerror occurred')
+      }
+    }
+
+    const pinProduct = () => {
+    
+  }
   return (
     <div>
       <p>MiniDashboard</p>
@@ -40,21 +57,21 @@ const MiniDashboard = () => {
               </p>
               <div className="flex">
                 <button
-                  onClick={edit}
+                  onClick={editProduct}
                   className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer transition-colors duration-500"
                   title="Edit"
                 >
                   <FaPen />
                 </button>
                 <button
-                  onClick={delete}
+                  onClick={() => deleteProduct(product._id)}
                   className=" p-2 px-2 w-full text-gray-400 font-bold cursor-pointer transition-colors duration-500"
                   title="Delete"
                 >
                   <FaTrash />
                 </button>
                 <button 
-                  onClick={Pin}
+                  onClick={pinProduct}
                   className=" p-2 px-2 w-full text-gray-400  font-bold cursor-pointer transition-colors duration-500"
                   title="Pin to top"
                 >
