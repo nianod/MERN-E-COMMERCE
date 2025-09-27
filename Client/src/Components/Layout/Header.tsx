@@ -2,7 +2,8 @@ import { useState } from "react";
 import { FaSearch, FaUser, FaUserCircle, FaCartPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Country } from "country-state-city"
-import SideCart from "../SideCart";
+import SideCart from "../SideCart"
+import Home from "../../Pages/Home";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("")
@@ -10,6 +11,8 @@ const Header = () => {
 
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
   const [openCart, setOpenCart] = useState<boolean>(false)
+  const [cartCount, SetCartCount] = useState<number>(0)
+
 
   const handleCountryChange = (isocode: String) => {
     const country = countries.find((c: any) => c.isocode === isocode)
@@ -84,10 +87,11 @@ const Header = () => {
        >
         <FaCartPlus />
          <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
-          2
+          {cartCount}
         </span>
       </button>
       <SideCart openCart={openCart} setOpenCart={setOpenCart}/>
+      <Home cartCount={cartCount} setCartCount={setOpenCart} />
     </div>
   );
 };

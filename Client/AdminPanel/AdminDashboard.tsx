@@ -7,6 +7,7 @@ type MenuItem = {
   icon: any;
 };
 
+
 const menuItems: MenuItem[] = [
   { to: 'minidashboard', label: "Dashboard", icon: <FaHome /> },
    { to: 'products', label: "Products", icon: <FaBox /> },
