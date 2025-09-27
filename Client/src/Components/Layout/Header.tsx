@@ -28,6 +28,7 @@ const Header = () => {
 
 
   return (
+    <>
     <div className="flex items-center justify-between top-0 fixed w-full bg-[#a1507c] px-6 py-3 shadow-md z-50">
        <div className="flex items-center gap-2">
         <img
@@ -91,8 +92,10 @@ const Header = () => {
         </span>
       </button>
       <SideCart openCart={openCart} setOpenCart={setOpenCart}/>
-      <Home cartCount={cartCount} setCartCount={setOpenCart} />
+      
     </div>
+    <Home cartCount={cartCount} setCartCount={SetCartCount} />
+    </>
   );
 };
 

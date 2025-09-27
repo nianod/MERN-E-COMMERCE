@@ -20,7 +20,7 @@ const Home = ({cartCount, setCartCount}) => {
   }, [])
 
   const addToCart = () => {
-
+      setCartCount(prevCount => prevCount + 1)
   }
 
  return (
