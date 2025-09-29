@@ -1,4 +1,6 @@
-import { FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa"
+import { Link } from "react-router-dom";
+
 type SideCartProps = {
   openCart: boolean;
   setOpenCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +28,7 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
             </button>
             <div className="font-semibold mt-4 p-4 overflow-y-auto h-full">
               <p className="text-center text-lg">Your Cart</p>
-              <div className="shadow-lg flex items-center justify-between gap-2 bg-white p-2 rounded-lg mt-4">
+              <div className="shadow-lg flex items-center justify-between gap-2 bg-white p-2 rounded-lg mt-4 mb-5">
                 <img
                   src="download.jpg"
                   alt="tablet"
@@ -40,6 +42,12 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
                   <FaTrash />
                 </button>
               </div>
+             <button 
+    
+               className="bg p-3 px-3 w-full cursor-pointer"
+             >
+               Purchase
+             </button>              
             </div>
           </div>
         </div>
