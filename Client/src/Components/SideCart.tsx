@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa"
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 type SideCartProps = {
   openCart: boolean;
@@ -44,7 +44,7 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
               </div>
              <button 
     
-               className="bg p-3 px-3 w-full cursor-pointer"
+               className="bg p-3 px-3 w-full cursor-pointer "
              >
                Purchase
              </button>              

@@ -3,5 +3,9 @@ body {
     background: linear-gradient(to right, blue, purple)
 }   
 .bg {
-    background: linear-gradient(to right, red, white, rgb(226, 28, 28));
+    background: linear-gradient(to right, red, white, rgb(232, 112, 112));
+}
+.bg:hover {
+    background: red;
+    transition: all;
 }
