@@ -8,12 +8,7 @@ type SideCartProps = {
   setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-const SideCart: React.FC<SideCartProps> = ({
-  openCart,
-  setOpenCart,
-  cartItems,
-  setCartItems,
-}) => {
+const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, setCartItems }) => {
   const removeFromCart = (id: string) => {
     setCartItems((prev) => prev.filter((item) => item._id !== id));
   };
@@ -47,6 +42,7 @@ const SideCart: React.FC<SideCartProps> = ({
                 </p>
               ) : (
                 cartItems.map((item) => (
+                  <div className="">
                   <div
                     key={item._id}
                     className="flex items-center justify-between gap-2 bg-white p-2 rounded-lg shadow mt-4"
@@ -68,6 +64,12 @@ const SideCart: React.FC<SideCartProps> = ({
                     >
                       <FaTrash />
                     </button>
+                  </div>
+                  <button 
+                    className="bg cursor-ponter px-3"
+                  >
+                    Purchase
+                  </button>
                   </div>
                 ))
               )}

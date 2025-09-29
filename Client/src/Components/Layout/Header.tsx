@@ -86,7 +86,7 @@ const Header = () => {
       </div>
 
        <button className="ml-6 relative cursor-pointer text-white text-2xl"
-        onClick={() => setOpenCart(true)}
+        onClick={() => setOpenCart(true)} 
        >
         <FaCartPlus />
          <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
