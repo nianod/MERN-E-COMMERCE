@@ -1,12 +1,23 @@
-import { FaTrash } from "react-icons/fa"
-// import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
+import type { Product } from "../Types/Product";
 
 type SideCartProps = {
   openCart: boolean;
   setOpenCart: React.Dispatch<React.SetStateAction<boolean>>;
+  cartItems: Product[];
+  setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
+const SideCart: React.FC<SideCartProps> = ({
+  openCart,
+  setOpenCart,
+  cartItems,
+  setCartItems,
+}) => {
+  const removeFromCart = (id: string) => {
+    setCartItems((prev) => prev.filter((item) => item._id !== id));
+  };
+
   return (
     <div>
       {openCart && (
@@ -20,34 +31,48 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
             }`}
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Close button */}
             <button
               className="absolute top-0 right-2 text-gray-700 text-3xl font-bold cursor-pointer hover:rotate-90 transition-transform duration-300"
               onClick={() => setOpenCart(false)}
             >
               ×
             </button>
+
+            {/* Cart Content */}
             <div className="font-semibold mt-4 p-4 overflow-y-auto h-full">
               <p className="text-center text-lg">Your Cart</p>
-              <div className="shadow-lg flex items-center justify-between gap-2 bg-white p-2 rounded-lg mt-4 mb-5">
-                <img
-                  src="download.jpg"
-                  alt="tablet"
-                  className="w-20 h-20 object-cover rounded-lg"
-                />
-                <div className="flex-1 px-2">
-                  <p className="font-medium text-gray-800">Tablet</p>
-                  <span className="text-green-700 font-semibold">$564</span>
-                </div>
-                <button className="text-red-600 hover:text-red-800 cursor-pointer" title="Remove from cart">
-                  <FaTrash />
-                </button>
-              </div>
-             <button 
-    
-               className="bg p-3 px-3 w-full cursor-pointer "
-             >
-               Purchase
-             </button>              
+
+              {cartItems.length === 0 ? (
+                <p className="text-center text-gray-600 mt-4">
+                  Your cart is empty
+                </p>
+              ) : (
+                cartItems.map((item) => (
+                  <div
+                    key={item._id}
+                    className="flex items-center justify-between gap-2 bg-white p-2 rounded-lg shadow mt-4"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                    <div className="flex-1 px-2">
+                      <p className="font-medium text-gray-800">{item.name}</p>
+                      <span className="text-green-700 font-semibold">
+                        ${item.price}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => removeFromCart(item._id)}
+                      className="text-red-600 hover:text-red-800"
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

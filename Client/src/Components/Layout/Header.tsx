@@ -13,6 +13,7 @@ const Header = () => {
   const [selectedCountry, setSelectedCountry] = useState<any>(null)
   const [openCart, setOpenCart] = useState<boolean>(false)
   const [cartCount, SetCartCount] = useState<number>(0)
+  const [cartItems, setCartItems] = useState<any>([])
 
 
   const handleCountryChange = (isocode: String) => {
@@ -92,7 +93,8 @@ const Header = () => {
           {cartCount}
         </span>
       </button>
-      <SideCart openCart={openCart} setOpenCart={setOpenCart}/>
+      <SideCart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems} setCartItems={setCartItems}/>
+    
       
     </div>
     <Home cartCount={cartCount} setCartCount={SetCartCount} />
