@@ -31,15 +31,13 @@ const SideCart: React.FC<SideCartProps> = ({
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
+      
             <button
               className="absolute top-0 right-2 text-gray-700 text-3xl font-bold cursor-pointer hover:rotate-90 transition-transform duration-300"
               onClick={() => setOpenCart(false)}
             >
               ×
             </button>
-
-            {/* Cart Content */}
             <div className="font-semibold mt-4 p-4 overflow-y-auto h-full">
               <p className="text-center text-lg">Your Cart</p>
 
