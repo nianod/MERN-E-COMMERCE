@@ -26,11 +26,11 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart }) => {
             </button>
             <div className="font-semibold mt-4 p-4 overflow-y-auto h-full">
               <p className="text-center text-lg">Your Cart</p>
-              <div className="flex items-center justify-between gap-2 bg-white p-2 rounded-lg shadow mt-4">
+              <div className="shadow-lg flex items-center justify-between gap-2 bg-white p-2 rounded-lg mt-4">
                 <img
                   src="download.jpg"
                   alt="tablet"
-                  className="w-16 h-16 object-cover rounded-lg"
+                  className="w-20 h-20 object-cover rounded-lg"
                 />
                 <div className="flex-1 px-2">
                   <p className="font-medium text-gray-800">Tablet</p>
