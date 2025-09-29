@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { FaSearch, FaUser, FaUserCircle, FaCartPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaSearch, FaUser, FaUserCircle, FaCartPlus } from "react-icons/fa"
+import { Link } from "react-router-dom"
 import { Country } from "country-state-city"
 import SideCart from "../SideCart"
-import Home from "../../Pages/Home";
+import Home from "../../Pages/Home"
+
 
 const Header = () => {
   const [search, setSearch] = useState<string>("")
   const [countries, SetCountry] = useState<any>(Country.getAllCountries())
 
-  const [selectedCountry, setSelectedCountry] = useState<any>(null);
+  const [selectedCountry, setSelectedCountry] = useState<any>(null)
   const [openCart, setOpenCart] = useState<boolean>(false)
   const [cartCount, SetCartCount] = useState<number>(0)
 
