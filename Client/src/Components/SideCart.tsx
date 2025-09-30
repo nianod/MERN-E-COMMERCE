@@ -8,7 +8,7 @@ type SideCartProps = {
   setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, setCartItems }) => {
+const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, setCartItems  }) => {
   const removeFromCart = (id: string) => {
     setCartItems((prev) => prev.filter((item) => item._id !== id));
   };

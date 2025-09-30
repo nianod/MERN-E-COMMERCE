@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import type { Product } from "../Types/Product"
+type CartCountProps = {
+  carCount: boolean;
+  setCartCount: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 
-const Home = ({cartCount, setCartCount}) => {
+const Home: React.FC<CartCountProps> = ({setCartCount}) => {
   const [products, setProducts] = useState<Product[]>([])
 
   const fetchProducts = async () => {
@@ -14,7 +18,7 @@ const Home = ({cartCount, setCartCount}) => {
     } catch (error) {
       console.error("error occurred", error)
     }
-  }
+  } 
 
   useEffect(() => {
     fetchProducts()
