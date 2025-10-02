@@ -26,7 +26,6 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-      
             <button
               className="absolute top-0 right-2 text-gray-700 text-3xl font-bold cursor-pointer hover:rotate-90 transition-transform duration-300"
               onClick={() => setOpenCart(false)}
@@ -60,17 +59,19 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
                     </div>
                     <button
                       onClick={() => removeFromCart(item._id)}
-                      className="text-red-600 hover:text-red-800"
+                      title="Remove from cart"
+                      className="text-red-600 hover:text-red-800 cursor-pointer"
                     >
                       <FaTrash />
                     </button>
                   </div>
                   <button 
-                    className="bg cursor-ponter px-3"
+                    className="bg cursor-ponter px-3 w-full mt-2 cursor-pointer py-1.5"
                   >
                     Purchase
                   </button>
                   </div>
+                  
                 ))
               )}
             </div>

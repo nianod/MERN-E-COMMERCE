@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { Country } from "country-state-city"
 import SideCart from "../SideCart"
 import Home from "../../Pages/Home"
+import type { Product } from "../../Types/Product";
 
 
 const Header = () => {
@@ -13,7 +14,8 @@ const Header = () => {
   const [selectedCountry, setSelectedCountry] = useState<any>(null)
   const [openCart, setOpenCart] = useState<boolean>(false)
   const [cartCount, SetCartCount] = useState<number>(0)
-  const [cartItems, setCartItems] = useState<any>([])
+    const [cartItems, setCartItems] = useState<Product[]>([]);
+  
 
 
   const handleCountryChange = (isocode: String) => {
@@ -97,7 +99,7 @@ const Header = () => {
     
       
     </div>
-    <Home cartCount={cartCount} setCartCount={SetCartCount} />
+    <Home cartCount={cartCount} setCartCount={SetCartCount} cartItems={cartItems} setCartItems={setCartItems} />
     </>
   );
 };

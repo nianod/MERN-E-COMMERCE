@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import type { Product } from "../Types/Product"
-type CartCountProps = {
-  carCount: number;
-  setCartCount: React.Dispatch<React.SetStateAction<number>>
-  cartCount: React.Dispatch<React.SetStateAction<number>>
-}
 
-const Home: React.FC<CartCountProps> = ({setCartCount, cartCount}) => {
+type CartCountProps = {
+  cartCount: number;
+  setCartCount: React.Dispatch<React.SetStateAction<number>>;
+  cartItems: Product[];
+  setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
+};
+
+
+const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, setCartItems }) => {
   const [products, setProducts] = useState<Product[]>([])
 
   const fetchProducts = async () => {
@@ -24,36 +27,30 @@ const Home: React.FC<CartCountProps> = ({setCartCount, cartCount}) => {
     fetchProducts()
   }, [])
 
-
-  // const addToCart = () => {
-  //   setCartCount(prevCount => prevCount + 1)
-  // }
-
-
- return (
+  return (
     <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 ">
-    <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">   
-      {products.map((product) => (
-        <div
-          key={product._id}
-          className="" 
-        >
-          <img 
-            src={product.image}
-            alt={product.name}
-            className="h-50 rounded w-50 object-cover"
-          />
-          <p className="text-lg text-white font-semibold capitalize ">{product.name}</p>
-          <span className="text-lg text-amber-300 font-bold mb-1.5">$ {product.price}</span> <br />
-          <button
-            className="bg-[#14144d] p-2 px-2 w-full text-white font-bold cursor-pointer hover:bg-fuchsia-600 transition-colors duration-500"
-            onClick={() => setCartCount((cartCount) => cartCount + 1)}
-          >  
-            Add to cart 
-          </button>
-        </div>
-      ))}
-    </div>
+      <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">   
+        {products.map((product) => (
+          <div key={product._id}>
+            <img 
+              src={product.image}
+              alt={product.name}
+              className="h-50 rounded w-50 object-cover"
+            />
+            <p className="text-lg text-white font-semibold capitalize ">{product.name}</p>
+            <span className="text-lg text-amber-300 font-bold mb-1.5">$ {product.price}</span> <br />
+            <button
+              className="bg-[#14144d] p-2 px-2 w-full text-white font-bold cursor-pointer hover:bg-fuchsia-600 transition-colors duration-500"
+              onClick={() => {
+                setCartCount((prev) => prev + 1);
+                setCartItems((prev) => [...prev, product]);
+              }}
+            >  
+              Add to cart 
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   )
 };

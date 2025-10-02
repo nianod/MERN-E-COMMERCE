@@ -44,7 +44,7 @@ const Footer = () => {
       </div>
       <div>
         <div className="">
-          <p className="font-semibold text-white">JOIN US ON: </p>
+          <p className="font-semibold text-white m-2">JOIN US ON: </p>
           <div className="flex gap-3 text-white ml-7">
             {socialLinks.map((media) => (
               <a
