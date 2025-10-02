@@ -2,11 +2,12 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import type { Product } from "../Types/Product"
 type CartCountProps = {
-  carCount: boolean;
-  setCartCount: React.Dispatch<React.SetStateAction<boolean>>
+  carCount: number;
+  setCartCount: React.Dispatch<React.SetStateAction<number>>
+  cartCount: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Home: React.FC<CartCountProps> = ({setCartCount}) => {
+const Home: React.FC<CartCountProps> = ({setCartCount, cartCount}) => {
   const [products, setProducts] = useState<Product[]>([])
 
   const fetchProducts = async () => {
@@ -24,14 +25,14 @@ const Home: React.FC<CartCountProps> = ({setCartCount}) => {
   }, [])
 
 
-  const addToCart = () => {
-    setCartCount(prevCount => prevCount + 1)
-  }
+  // const addToCart = () => {
+  //   setCartCount(prevCount => prevCount + 1)
+  // }
 
 
  return (
     <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 ">
-    <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5"> 
+    <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">   
       {products.map((product) => (
         <div
           key={product._id}
@@ -46,7 +47,7 @@ const Home: React.FC<CartCountProps> = ({setCartCount}) => {
           <span className="text-lg text-amber-300 font-bold mb-1.5">$ {product.price}</span> <br />
           <button
             className="bg-[#14144d] p-2 px-2 w-full text-white font-bold cursor-pointer hover:bg-fuchsia-600 transition-colors duration-500"
-            onClick={addToCart}
+            onClick={() => setCartCount((cartCount) => cartCount + 1)}
           >  
             Add to cart 
           </button>
