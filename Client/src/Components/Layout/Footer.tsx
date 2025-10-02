@@ -2,14 +2,15 @@ import { FaInstagram, FaFacebook, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } f
 import { Link } from "react-router-dom"
 
 const Footer = () => {
-  
+
   const socialLinks = [
+
     {label: "instagram", icon: <FaInstagram />, URL : "#"},
-    {label: "Facebook", icon: <FaFacebook />, URL : "#"},
-    {label: "linkedin", icon: <FaLinkedin />, URL : "#"},
-    {label: "tiktok", icon: <FaTiktok />, URL : "#"},
-    {label: "twitter", icon: <FaTwitter />, URL : "#"},
-    {label: "youtube", icon: <FaYoutube />, URL : "#"},
+    {label: "Facebook", icon: <FaFacebook />, URL : "https://web.facebook.com/profile.php?id=100074411341844"},
+    {label: "linkedin", icon: <FaLinkedin />, URL : "www.linkedin.com/in/arnold-wanza-b51654330"},
+    {label: "tiktok", icon: <FaTiktok />, URL : "https://www.tiktok.com/@its._arnold_"},
+    {label: "twitter", icon: <FaTwitter />, URL : "https://x.com/Itsarnold001"},
+    {label: "youtube", icon: <FaYoutube />, URL : "https://www.youtube.com/@_arnold._.001"},
   ]
 
   return (
@@ -17,35 +18,45 @@ const Footer = () => {
       <div className="flex justify-center text-white">
         <div className="flex flex-col p-6">
           <h1 className="font-semibold mb-0.5">Useful links</h1>
-          <Link to="/" className="text-sm hover:underline">Track your order</Link>
-          <Link to="/" className="text-sm hover:underline">How to order</Link>
-          <Link to="/" className="text-sm hover:underline">Pick-up stations</Link>
-          <Link to="/" className="text-sm hover:underline">Black Friday</Link>
-          <Link to="/" className="text-sm hover:underline">Report a product</Link>
-          <Link to="/" className="text-sm hover:underline">Product Policies</Link>
-          <Link to="/" className="text-sm hover:underline">Help center</Link>
-          <Link to="/" className="text-sm hover:underline">Chat with us</Link>         
+          <Link to="/" className="text-sm hover:underline text-gray-300">Track your order</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">How to order</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Pick-up stations</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Black Friday</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Report a product</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Product Policies</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Help center</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Chat with us</Link>         
         </div>
         <div className="flex flex-col p-6">
           <h1 className="font-semibold mb-0.5">Make money with us</h1>
-          <Link to="/" className="text-sm hover:underline">Advertise on us</Link>
-          <Link to="/" className="text-sm hover:underline">Sell a product</Link>
-          <Link to="/" className="text-sm hover:underline">Become an affiliate</Link>
-          <Link to="/" className="text-sm hover:underline">Own shares</Link>
-          <Link to="/" className="text-sm hover:underline">Real estate</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Advertise on us</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Sell a product</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Become an affiliate</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Own shares</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Real estate</Link>
         </div>
         <div className="flex flex-col p-6">
           <h1 className="font-semibold mb-0.5">About us</h1>
-          <Link to="/" className="text-sm hover:underline">Privacy policy</Link>
-          <Link to="/" className="text-sm hover:underline">Terms & conditions</Link>
-          <Link to="/" className="text-sm hover:underline">Cookies policy</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Privacy policy</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Terms & conditions</Link>
+          <Link to="/" className="text-sm hover:underline text-gray-300">Cookies policy</Link>
         </div>
       </div>
       <div>
         <div>
-          <p>JOIN US ON: </p>
-          <div>
-
+          <p className="font-semibold text-white">JOIN US ON: </p>
+          <div className="flex gap-3 text-white ">
+            {socialLinks.map((media) => (
+              <a
+                key={media.label}
+                href={media.URL}
+                className="mx-2 text-xl hover:text-blue-400 scale-110 transition-transform"
+                target="__blank"
+                rel="noreferrer"
+              >
+                {media.icon}
+              </a>
+            ))}
           </div>
         </div>
       </div>

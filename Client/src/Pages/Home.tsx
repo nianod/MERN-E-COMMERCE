@@ -30,7 +30,7 @@ const Home: React.FC<CartCountProps> = ({setCartCount}) => {
 
 
  return (
-    <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 pb-25">
+    <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 ">
     <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5"> 
       {products.map((product) => (
         <div
