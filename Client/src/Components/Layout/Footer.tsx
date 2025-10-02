@@ -14,8 +14,8 @@ const Footer = () => {
   ]
 
   return (
-    <div className='bottom-0   bg-gray-600 z-40 w-full'>
-      <div className="flex justify-center text-white">
+    <div className='bottom-0 bg-gray-600 z-40 w-full'>
+      <div className="flex flex-col sm:flex-row justify-center text-white">
         <div className="flex flex-col p-6">
           <h1 className="font-semibold mb-0.5">Useful links</h1>
           <Link to="/" className="text-sm hover:underline text-gray-300">Track your order</Link>
@@ -43,14 +43,14 @@ const Footer = () => {
         </div>
       </div>
       <div>
-        <div>
+        <div className="">
           <p className="font-semibold text-white">JOIN US ON: </p>
-          <div className="flex gap-3 text-white ">
+          <div className="flex gap-3 text-white ml-7">
             {socialLinks.map((media) => (
               <a
                 key={media.label}
                 href={media.URL}
-                className="mx-2 text-xl hover:text-blue-400 scale-110 transition-transform"
+                className="mx-2 text-xl hover:text-blue-400 scale-110 transition-transform mt-4"
                 target="__blank"
                 rel="noreferrer"
               >
@@ -59,6 +59,10 @@ const Footer = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="bg-gray-700 flex flex-col justify-center items-center p-3 mt-4">
+        <p className="text-gray-300">ARNOLD SELLERS | MALL</p>
+        <span className="text-gray-300">Copyright 2025, All rights reserved.</span>
       </div>
     </div>
   )
