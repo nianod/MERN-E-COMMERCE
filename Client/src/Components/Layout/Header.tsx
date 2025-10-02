@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <>
-    <div className="flex items-center justify-between top-0 fixed w-full bg-[#a1507c] px-6 py-3 shadow-md z-50">
+    <div className="flex items-center justify-between top-0 fixed w-full bg-[#382d33] px-6 py-3 shadow-md z-50">
        <div className="flex items-center gap-2">
         <img
           src={headerStuff.logo}
@@ -47,7 +47,7 @@ const Header = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for products, Brands, Categories..."
-          className="p-2 pl-10 w-full rounded bg-white border border-gray-300 text-[#030203] focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="onp p-2 pl-10 w-full rounded bg-[#414145] border-gray-300 text-[#f3e6f3] focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <FaSearch className="absolute left-4 text-blue-500 rounded cursor-pointer" />
         <button className="bg-amber-300 p-2 cursor-pointer text-wgray-700 font-semibold shadow-2xl rounded hover:bg-amber-400 transition duration-300">

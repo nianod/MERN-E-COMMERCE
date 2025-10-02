@@ -1,10 +1,11 @@
 @import 'tailwindcss';
 body {
-    background: linear-gradient(to right, blue, purple)
+    background: black;
 }   
 .bg {
     background: linear-gradient(to right, red, rgb(233, 166, 166));
 }
+
 .bg:hover {
     background: red;
     transition: all;
