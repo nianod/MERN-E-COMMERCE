@@ -14,7 +14,7 @@ type CartCountProps = {
 
 const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, setCartItems }) => {
   const [products, setProducts] = useState<Product[]>([])
-  const [cookiesModal, setCookiesModal] = useState<boolean>(false)
+  const [cookiesModal, setCookiesModal] = useState<boolean>(true)
 
   const fetchProducts = async () => {
     try {
@@ -30,7 +30,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
     fetchProducts()
   }, [])
 
-  const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
+  // const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
   
   return (
     <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 ">
@@ -49,7 +49,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
               onClick={() => {
                 setCartCount((prev) => prev + 1);
                 setCartItems((prev) => [...prev, product]);
-                play()
+                
               }}
             >  
               Add to cart 
