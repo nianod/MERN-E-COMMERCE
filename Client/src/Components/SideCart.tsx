@@ -1,5 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 import type { Product } from "../Types/Product";
+import useSound from "use-sound";
 
 type SideCartProps = {
   openCart: boolean;
@@ -7,6 +8,7 @@ type SideCartProps = {
   cartItems: Product[];
   setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
 };
+const [drop] = useSound("/mixkit-typewriter-soft-click-1125.wav")
 
 const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, setCartItems  }) => {
   const removeFromCart = (id: string) => {
@@ -58,7 +60,7 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
                       </span>
                     </div>
                     <button
-                      onClick={() => removeFromCart(item._id)}
+                      onClick={() => {removeFromCart(item._id); drop()}}
                       title="Remove from cart"
                       className="text-red-600 hover:text-red-800 cursor-pointer"
                     >

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import type { Product } from "../Types/Product"
-
+import useSound from "use-sound";
+import Cookies from "../Components/Cookies";
+ 
 type CartCountProps = {
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
@@ -12,6 +14,7 @@ type CartCountProps = {
 
 const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, setCartItems }) => {
   const [products, setProducts] = useState<Product[]>([])
+  const [cookiesModal, setCookiesModal] = useState<boolean>(false)
 
   const fetchProducts = async () => {
     try {
@@ -27,6 +30,8 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
     fetchProducts()
   }, [])
 
+  const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
+  
   return (
     <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 ">
       <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">   
@@ -44,6 +49,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
               onClick={() => {
                 setCartCount((prev) => prev + 1);
                 setCartItems((prev) => [...prev, product]);
+                play()
               }}
             >  
               Add to cart 
@@ -51,6 +57,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
           </div>
         ))}
       </div>
+      <Cookies cookiesModal={cookiesModal} setCookiesModal={setCookiesModal}/>
     </div>
   )
 };
