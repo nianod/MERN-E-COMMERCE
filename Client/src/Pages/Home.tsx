@@ -30,10 +30,10 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
     fetchProducts()
   }, [])
 
-  // const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
+  const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
   
   return (
-    <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16 ">
+    <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16">
       <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">   
         {products.map((product) => (
           <div key={product._id}>
@@ -49,7 +49,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
               onClick={() => {
                 setCartCount((prev) => prev + 1);
                 setCartItems((prev) => [...prev, product]);
-                
+                play()
               }}
             >  
               Add to cart 
