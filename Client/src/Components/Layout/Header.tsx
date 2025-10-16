@@ -97,10 +97,17 @@ const Header = () => {
         </span>
       </button>
       <SideCart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems} setCartItems={setCartItems}/>
-      <Home searchItem={searchItem} setSearchItem={setSearchItem} />
+      
       
     </div>
-    <Home cartCount={cartCount} setCartCount={SetCartCount} cartItems={cartItems} setCartItems={setCartItems} />
+    <Home 
+      cartCount={cartCount}
+      setCartCount={SetCartCount}
+      searchItem={searchItem}
+      setSearchItem={setSearchItem}
+      cartItems={cartItems} 
+      setCartItems={setCartItems}
+     />
     
     </>
   );

@@ -33,6 +33,10 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, se
     fetchProducts()
   }, [])
 
+const filteredItems = products.filter(product =>
+  (product.name ?? "").toLowerCase().includes((searchItem ?? "").toLowerCase())
+);
+
   const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
   
   return (
