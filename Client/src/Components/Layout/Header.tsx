@@ -14,7 +14,8 @@ const Header = () => {
   const [selectedCountry, setSelectedCountry] = useState<any>(null)
   const [openCart, setOpenCart] = useState<boolean>(false)
   const [cartCount, SetCartCount] = useState<number>(0)
-    const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>([])
+  const [searchItem, setSearchItem] = useState<string>("")
   
 
 
