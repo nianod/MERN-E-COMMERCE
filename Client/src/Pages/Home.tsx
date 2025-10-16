@@ -9,10 +9,13 @@ type CartCountProps = {
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
   cartItems: Product[];
   setCartItems: React.Dispatch<React.SetStateAction<Product[]>>;
+  searchItem: string,
+  setSearchItem: React.Dispatch<React.SetStateAction<string>>
 };
 
+ 
 
-const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, setCartItems }) => {
+const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, setSearchItem, searchItem, setCartItems }) => {
   const [products, setProducts] = useState<Product[]>([])
   const [cookiesModal, setCookiesModal] = useState<boolean>(true)
 
