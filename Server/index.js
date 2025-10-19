@@ -13,6 +13,12 @@ const app = express()
 app.use(cors())
 dotenv.config() 
 
+
+//JW authentication
+const jwtSecretKey = process.env.JSON_SECRET_KEY
+const jwtExpiration = process.env.JSON_EXPIRY
+
+
 app.use(express.json()) //Middleware
 app.use(express.urlencoded({extended: false }))
 
@@ -30,15 +36,7 @@ app.post('/api/products', async (request, response) => {
     }
 })
 
-//controller
-// app.get('/api/products', async (request, response) => {
-//     try {
-//         const product = await Product.find({})
-//         response.status(200).json(product)
-//     } catch(error) {
-//         response.status(500).json({message: error.message})
-//     }
-// })
+ 
  
 app.get('/api/product/id', async(request, response) => {
     try {

@@ -20,8 +20,7 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
 
   }
 
-  
-
+ 
   return (
     <div>
       {openCart && (
