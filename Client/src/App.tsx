@@ -5,29 +5,33 @@ import Signup from "./Pages/Auth/Signup";
 import Signin from "./Pages/Auth/Signin";
 import AdminAuth from "../AdminPanel/AdminAuth";
 import AdminDashboard from "../AdminPanel/AdminDashboard";
-import Products from "../AdminPanel/Pages/Products"
-import Orders from "../AdminPanel/Pages/Orders"
-import Categories from "../AdminPanel/Pages/Categories"
-import Users from "../AdminPanel/Pages/Users"
-import Messages from '../AdminPanel/Pages/Messages'
-import MiniDashboard from '../AdminPanel/Pages/MiniDashboard'
-import ManageAccount from '../AdminPanel/Pages/ManageAccount'
-import Settings from '../AdminPanel/Pages/Settings'
+import Products from "../AdminPanel/Pages/Products";
+import Orders from "../AdminPanel/Pages/Orders";
+import Categories from "../AdminPanel/Pages/Categories";
+import Users from "../AdminPanel/Pages/Users";
+import Messages from "../AdminPanel/Pages/Messages";
+import MiniDashboard from "../AdminPanel/Pages/MiniDashboard";
+import ManageAccount from "../AdminPanel/Pages/ManageAccount";
+import Settings from "../AdminPanel/Pages/Settings";
 import EntireCart from "./Components/EntireCart";
-import { getProtectedData } from "./Pages/Auth/ProtectedRoute";
+import ProtectedRoute from "./Pages/Auth/ProtectedRoute"
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+         <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route path="/entirecart" element={<EntireCart />} />
         </Route>
-        <Route path="register" element={<Signup />} />
-        <Route path="/entirecart" element={<EntireCart />} />
-        <Route path="login" element={<Signin />} />
-        <Route path="admin" element={<AdminAuth />} />
-        <Route path="admin/dashboard" element={<AdminDashboard />}>
+
+         <Route path="/register" element={<Signup />} />
+        <Route path="/login" element={<Signin />} />
+
+         <Route path="/admin" element={<AdminAuth />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />}>
           <Route index element={<MiniDashboard />} />
           <Route path="messages" element={<Messages />} />
           <Route path="minidashboard" element={<MiniDashboard />} />
