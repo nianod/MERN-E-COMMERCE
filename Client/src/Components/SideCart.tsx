@@ -32,7 +32,7 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
           onClick={() => setOpenCart(false)}
         >
           <div
-            className={`fixed right-0 top-0 bottom-0 min-w-64 bg-gray-300 z-50 transform transition-transform duration-300 ease-in-out ${
+            className={`fixed right-0 top-0 bottom-0 min-w-64 bg-gray-300 mt-15 z-50 transform transition-transform duration-300 ease-in-out ${
               openCart ? "translate-x-0" : "translate-x-full"
             }`}
             onClick={(e) => e.stopPropagation()}
@@ -52,9 +52,11 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
                 </p>
               ) : (
                 cartItems.map((item) => (
-                  <div className="">
-                  <div
+                  <div className=""
                     key={item._id}
+                  >
+                  <div
+                   
                     className="flex items-center justify-between gap-2 bg-white p-2 rounded-lg shadow mt-4"
                   >
                     <img
