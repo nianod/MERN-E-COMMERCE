@@ -13,6 +13,7 @@ import Messages from '../AdminPanel/Pages/Messages'
 import MiniDashboard from '../AdminPanel/Pages/MiniDashboard'
 import ManageAccount from '../AdminPanel/Pages/ManageAccount'
 import Settings from '../AdminPanel/Pages/Settings'
+import EntireCart from "./Components/EntireCart";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
         </Route>
         <Route path="register" element={<Signup />} />
+        <Route path="/entirecart" element={<EntireCart />} />
         <Route path="login" element={<Signin />} />
         <Route path="admin" element={<AdminAuth />} />
         <Route path="admin/dashboard" element={<AdminDashboard />}>

@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 const productRoute = require('./Routes/productRoute.js')
 const Product = require('./Models/Product.models.js')
 const cors = require('cors')
+const authroutes = require('./Routes/authroutes.js')
 
 const app = express()
 app.use(cors())
@@ -21,6 +22,7 @@ const jwtExpiration = process.env.JSON_EXPIRY
 
 app.use(express.json()) //Middleware
 app.use(express.urlencoded({extended: false }))
+app.use('/api/auth', authroutes)
 
 app.use('/api/products', productRoute)
 

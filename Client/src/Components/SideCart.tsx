@@ -1,5 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 import type { Product } from "../Types/Product";
+import { useNavigate } from "react-router-dom";
 
 
 type SideCartProps = {
@@ -16,8 +17,10 @@ const SideCart: React.FC<SideCartProps> = ({ openCart, setOpenCart, cartItems, s
     setCartItems((prev) => prev.filter((item) => item._id !== id));
   };
 
-  const purchase = () => {
+  const navigate = useNavigate()
 
+  const purchase = () => {
+    navigate('/entirecart')
   }
 
  
