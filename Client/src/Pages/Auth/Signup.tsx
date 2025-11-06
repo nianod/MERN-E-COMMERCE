@@ -92,7 +92,7 @@ const Signup = () => {
             )} 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading}   
             className={`w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition duration-200 ${
               loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700 cursor-pointer'
             }`}
