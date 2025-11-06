@@ -6,10 +6,10 @@ export const registerUser = async(req, res) => {
     try {
         const { email, password } = req.body
 
-        const exisringUser = await user.findOne({ email })
+        const existingUser = await user.findOne({ email })
 
-        if(exisringUser) {
-            return res.status(400).json({ message: "User already exixts"})
+        if(existingUser) {
+            return res.status(400).json({ message: "User already exists"})
         }
 
         //Hash passwod
@@ -43,19 +43,19 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user
+ 
     const existingUser = await user.findOne({ email });
     if (!existingUser) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Compare passwords
+ 
     const isMatch = await bcrypt.compare(password, existingUser.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Generate token
+    
     const token = generateToken(existingUser._id);
 
     res.status(200).json({

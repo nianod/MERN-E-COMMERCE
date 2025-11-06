@@ -15,11 +15,6 @@ app.use(cors())
 dotenv.config() 
 
 
-//JW authentication
-const jwtSecretKey = process.env.JSON_SECRET_KEY
-const jwtExpiration = process.env.JSON_EXPIRY
-
-
 app.use(express.json()) //Middleware
 app.use(express.urlencoded({extended: false }))
 app.use('/api/auth', authroutes)
