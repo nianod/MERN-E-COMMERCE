@@ -1,14 +1,17 @@
-// import express, { request } from "express";
-// import mongoose from "mongoose";
-// import dotenv from 'dotenv'
+import express from 'express';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
-const express = require('express')
-const dotenv = require('dotenv')
-const mongoose = require('mongoose')
-const productRoute = require('./Routes/productRoute.js')
-const Product = require('./Models/Product.models.js')
-const cors = require('cors')
-const authroutes = require('./Routes/authroutes.js')
+//const express = require('express')
+//const dotenv = require('dotenv')
+//const mongoose = require('mongoose')
+import productRoute from './Routes/productRoute.js'
+// const productRoute = require('./Routes/productRoute.js')
+import Product from './Models/Product.models.js'
+// const Product = require('./Models/Product.models.js')
+import cors from 'cors'
+// const cors = require('cors')
+import authroutes from './Routes/authroutes.js'
 
 const app = express()
 app.use(cors())
