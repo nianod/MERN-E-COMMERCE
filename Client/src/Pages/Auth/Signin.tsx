@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -11,10 +12,21 @@ const Signin = () => {
 
   const navigate = useNavigate()
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/auth/login', {
+        email,
+        password
+      })
+
+      localStorage.setItem('token', response.data.token)
+    } catch (err: any) {
+      setError(err.response?.data || err.message)
+    }
 
     if (!email || !password) {
       setError("Please fill in all fields");
