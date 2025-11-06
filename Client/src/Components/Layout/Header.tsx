@@ -5,6 +5,7 @@ import { Country } from "country-state-city";
 import SideCart from "../SideCart";
 import Home from "../../Pages/Home";
 import type { Product } from "../../Types/Product";
+import Logout from "../Logout";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
@@ -226,6 +227,7 @@ const Header = () => {
       </div>
 
       <SideCart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems} setCartItems={setCartItems} />
+      <Logout leave={leave} setLeave={setLeave} />
 
       <Home
         cartCount={cartCount}
