@@ -16,7 +16,7 @@ const Cookies: React.FC<CookiesProps> = ({ cookiesModal, setCookiesModal }) => {
           ></div>
 
            <div className="fixed bottom-3 left-46 -translate-x-1/2 z-50 bg-gray-300 w-fit rounded p-5 shadow-lg">
-            <p className="text-center font-semibold">This site uses cookies 🍪</p>
+            <p className="text-center font-semibold">This site uses cookies </p>
             <span>
               Click{" "}
               <Link
@@ -42,3 +42,5 @@ const Cookies: React.FC<CookiesProps> = ({ cookiesModal, setCookiesModal }) => {
 };
 
 export default Cookies;
+
+
