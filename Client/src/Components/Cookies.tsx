@@ -10,7 +10,6 @@ const Cookies: React.FC<CookiesProps> = ({ cookiesModal, setCookiesModal }) => {
     <>
       {cookiesModal && (
         <>
-     
           <div
             className="fixed inset-0 bg-black/40 z-40"
             onClick={() => setCookiesModal(false)}
