@@ -13,8 +13,6 @@ type CartCountProps = {
   setSearchItem: React.Dispatch<React.SetStateAction<string>>
 };
 
- 
-
 const Home: React.FC<CartCountProps> = ({ setCartCount, cartCount, cartItems, setSearchItem, searchItem, setCartItems }) => {
   const [products, setProducts] = useState<Product[]>([])
   const [cookiesModal, setCookiesModal] = useState<boolean>(true)
