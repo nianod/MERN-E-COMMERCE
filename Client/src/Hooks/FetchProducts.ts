@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 
   const [products, setProducts] = useState<Product[]>([]);
 
-  const fetchProducts = async () => {
+useEffect(() => {
+    const fetchProducts = async () => {
     try {
       const response = await axios.get<Product[]>("http://localhost:8000/api/products");
       setProducts(response.data);
@@ -13,9 +14,10 @@ import { useEffect, useState } from "react"
       console.error("error occurred", error);
     }
   };
+  fetchProducts()
+}, [])
 
-  useEffect(() => {
-    fetchProducts()
-  }, [])
+   
+ 
 
   export default fetchProducts
