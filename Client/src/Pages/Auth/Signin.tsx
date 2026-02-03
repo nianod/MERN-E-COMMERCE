@@ -30,7 +30,7 @@ const Signin = () => {
     
   }
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-6">
         <div className='flex flex-col justify-center items-center mb-6'>
           <img 
@@ -42,9 +42,7 @@ const Signin = () => {
             Login to Arnold Sellers
           </h1>
         </div>
-        
-     
-        
+ 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             <p className='text-sm'>{error}</p>

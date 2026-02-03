@@ -2,6 +2,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useNavigate } from "react-router-dom";
 
 const Credentials = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -9,7 +10,7 @@ const Credentials = () => {
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [valid, setValid] = useState(true);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const navigate = useNavigate()
   const handleChange = (value: string | undefined) => {
     const input = value || "";
     setMobileNumber(input);
@@ -25,13 +26,14 @@ const Credentials = () => {
     setLoading(true);
     e.preventDefault();
     if (!valid) return;
-    // continue with OTP request
+    navigate('/verification')
+     
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        {/* Logo Section */}
+        
         <div className="text-center mb-8 items-center justify-center flex flex-col">
            <img
             className="w-24 h-24 rounded-full object-cover"
@@ -58,6 +60,7 @@ const Credentials = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                   type="text"
                   placeholder="Name"
+                  required
                 />
               </div>
               <div>
@@ -65,6 +68,7 @@ const Credentials = () => {
                   Last name
                 </label>
                 <input
+                required
                   type="text"
                   className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                   value={lastName}
@@ -95,7 +99,7 @@ const Credentials = () => {
               )}
             </div>
 
-            {/* Submit Button */}
+             
             <button
               type="submit"
               disabled={loading}

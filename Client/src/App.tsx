@@ -15,7 +15,8 @@ import Settings from "../AdminPanel/Pages/Settings";
 import EntireCart from "./Components/EntireCart";
 import ProtectedRoute from "./Pages/Auth/ProtectedRoute"
 import Credentials from "./Pages/Auth/Credentials";
-
+import Otp from "./Pages/Auth/Otp";
+ 
 const App = () => {
   return (
     <Router>
@@ -29,6 +30,7 @@ const App = () => {
 
         <Route path="/credentials" element={<Credentials />} />          
         <Route path="/login" element={<Signin />} />
+        <Route path="/otp" element={<Otp />} />
 
          <Route path="/admin" element={<AdminAuth />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />}>
