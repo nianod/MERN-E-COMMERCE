@@ -26,7 +26,7 @@ const Credentials = () => {
     setLoading(true);
     e.preventDefault();
     if (!valid) return;
-    navigate('/verification')
+    navigate('/otp')
      
   };
 
