@@ -4,10 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [isEmailFocused, setIsEmailFocused] = useState<boolean>(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
+   const [isEmailFocused, setIsEmailFocused] = useState<boolean>(false);
+   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
   const navigate = useNavigate()
@@ -16,31 +14,23 @@ const Signin = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    navigate('/credentials')
+    // try {
+    //   const response = await axios.post('http://localhost:8000/api/auth/login', {
+    //     email,
+    //    })
 
-    try {
-      const response = await axios.post('http://localhost:8000/api/auth/login', {
-        email,
-        password
-      })
-
-      localStorage.setItem('token', response.data.token)
-    } catch (err: any) {
-      setError(err.response?.data || err.message)
-    }
-
-    if (!email || !password) {
-      setError("Please fill in all fields");
-      setLoading(false);
-      return;
-    }
-    setTimeout(() => {
-      setLoading(false);
-      navigate('/');
-    }, 1500);
+    //   localStorage.setItem('token', response.data.token)
+    //   navigate('/credentials')
+    // } catch (err: any) {
+    //   setError(err.response?.data || err.message)
+    // } finally{
+    //   setLoading(false)
+    // }
+    
   }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-6">
         <div className='flex flex-col justify-center items-center mb-6'>
           <img 
@@ -52,9 +42,7 @@ const Signin = () => {
             Login to Arnold Sellers
           </h1>
         </div>
-        
-        <p className="text-gray-600 text-center mb-6">Fill the fields below to Proceed</p>
-        
+ 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             <p className='text-sm'>{error}</p>
@@ -62,47 +50,20 @@ const Signin = () => {
         )}
         
         <form className="space-y-6" onSubmit={submit}>
-          <div className="relative">
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={() => setIsEmailFocused(true)}
-              onBlur={() => setIsEmailFocused(false)}
-              disabled={loading}
-              className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
-            />
-            <label
-              className={`absolute left-4 transition-all duration-200 pointer-events-none ${
-                isEmailFocused || email
-                  ? 'top-1 text-xs text-blue-500 font-medium'
-                  : 'top-4 text-gray-500'
-              } ${loading ? 'opacity-50' : ''}`}
-            >
-              Email or Mobile Number*
-            </label>
-          </div>
+                <div>
+                <label className="text-sm font-medium text-gray-700 mb-1.5 block">
+                  Enter your email:
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="email@gmail.com"
+                />
+              </div>
           
-          <div className="relative">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setIsPasswordFocused(true)}
-              onBlur={() => setIsPasswordFocused(false)}
-              disabled={loading}
-              className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
-            />
-            <label
-              className={`absolute left-4 transition-all duration-200 pointer-events-none ${
-                isPasswordFocused || password
-                  ? 'top-1 text-xs text-blue-500 font-medium'
-                  : 'top-4 text-gray-500'
-              } ${loading ? 'opacity-50' : ''}`}
-            >
-              Password*
-            </label>
-          </div>
+           
           
           <button
             type="submit"
@@ -126,7 +87,7 @@ const Signin = () => {
         </form>
         
         <div className="text-center text-sm text-gray-600 mt-6">
-          <p>New to Arnold sellers? <Link to={'/register'}className="text-blue-600 hover:underline">Sign up</Link></p>
+          <p>Serving you beyond your expectations</p>
         </div>
       </div>
     </div>

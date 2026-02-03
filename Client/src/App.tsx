@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Layout from "./Components/Layout/Layout";
-import Signup from "./Pages/Auth/Signup";
 import Signin from "./Pages/Auth/Signin";
 import AdminAuth from "../AdminPanel/AdminAuth";
 import AdminDashboard from "../AdminPanel/AdminDashboard";
@@ -15,7 +14,9 @@ import ManageAccount from "../AdminPanel/Pages/ManageAccount";
 import Settings from "../AdminPanel/Pages/Settings";
 import EntireCart from "./Components/EntireCart";
 import ProtectedRoute from "./Pages/Auth/ProtectedRoute"
-
+import Credentials from "./Pages/Auth/Credentials";
+import Otp from "./Pages/Auth/Otp";
+ 
 const App = () => {
   return (
     <Router>
@@ -27,8 +28,9 @@ const App = () => {
           <Route path="/entirecart" element={<EntireCart />} />
         </Route>
 
-         <Route path="/register" element={<Signup />} />
+        <Route path="/credentials" element={<Credentials />} />          
         <Route path="/login" element={<Signin />} />
+        <Route path="/otp" element={<Otp />} />
 
          <Route path="/admin" element={<AdminAuth />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />}>
