@@ -9,14 +9,17 @@ import productRoute from './Routes/productRoute.js'
  import authroutes from './Routes/authroutes.js'
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: 'https://localshost:3000',
+    credentials: true
+}))
 dotenv.config() 
 
 
 app.use(express.json()) //Middleware
 app.use(express.urlencoded({extended: false }))
-app.use('/api/auth', authroutes)
 
+app.use('/api/auth', authroutes)
 app.use('/api/products', productRoute)
 
 const PORT = process.env.PORT || 7000
@@ -33,7 +36,7 @@ app.post('/api/products', async (request, response) => {
 
  
  
-app.get('/api/product/id', async(request, response) => {
+app.get('/api/product/:id', async(request, response) => {
     try {
         const { id } = request.params
         const product = await Product.findById(id)
@@ -54,7 +57,7 @@ app.put('/api/product/:id', async(request, response) => {
             return response.status(404).json({ message: "Product not found"})
         }
     } catch (error) {
-        const updateProduct = await Product.findById(id)
+        
         response.status(201).json(updateProduct)
     }
 })

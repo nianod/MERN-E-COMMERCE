@@ -1,38 +1,27 @@
-import { generateToken } from "../Utilities/generateToken.js";
-import user from "../Models/user.js";
-import bcrypt from 'bcryptjs'
-
-
-
-export const loginUser = async (req, res) => {
+ import user from "../Models/user.js";
+ 
+export const requestLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const {email} = req.body
 
- 
-    const existingUser = await user.findOne({ email });
-    if (!existingUser) {
-      return res.status(400).json({ message: "Invalid email or password" });
+    if(!email) {
+      return res.status(400).json({message: 'email is mandatory'})
     }
 
- 
-    const isMatch = await bcrypt.compare(password, existingUser.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
+    const existingUser = await user.findOne({email})
 
-    
-    const token = generateToken(existingUser._id);
+    return res.status(200).json({
+      success: true,
+      message: 'if your email exists in our database, we will send an OTP to your email'
+    })
 
-    res.status(200).json({
-      message: "Login successful",
-      user: {
-        id: existingUser._id,
-        email: existingUser.email,
-      },
-      token,
-    });
   } catch (error) {
-    console.error("Error in loginUser:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error in CheckEmail:", error);
+    res.status(500).json({ message: "Server error" });  
   }
-};
+}
+ 
+export const verifyOTp = async (req, res) => {
+  const {email, otp} = req.body
+  
+}

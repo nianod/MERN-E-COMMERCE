@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
   const [email, setEmail] = useState<string>('');
-   const [isEmailFocused, setIsEmailFocused] = useState<boolean>(false);
    const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
@@ -14,19 +13,21 @@ const Signin = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    navigate('/credentials')
-    // try {
-    //   const response = await axios.post('http://localhost:8000/api/auth/login', {
-    //     email,
-    //    })
-
-    //   localStorage.setItem('token', response.data.token)
-    //   navigate('/credentials')
-    // } catch (err: any) {
-    //   setError(err.response?.data || err.message)
-    // } finally{
-    //   setLoading(false)
-    // }
+   
+    try {
+       await axios.post('http://localhost:8000/api/auth/request-login', {
+        email,
+       })
+        
+       navigate ('/otp', {state: {email}})
+       // navigate('/dashboard')
+      
+  
+    } catch (err: any) {
+      setError(err.response?.data || err.message)
+    } finally{
+      setLoading(false)
+    }
     
   }
   return (
