@@ -10,8 +10,8 @@ import productRoute from './Routes/productRoute.js'
 
 const app = express()
 app.use(cors({
-    origin: 'https://localshost:3000',
-    credentials: true
+    origin: '*',
+    credentials: false
 }))
 dotenv.config() 
 
@@ -34,8 +34,7 @@ app.post('/api/products', async (request, response) => {
     }
 })
 
- 
- 
+
 app.get('/api/product/:id', async(request, response) => {
     try {
         const { id } = request.params
