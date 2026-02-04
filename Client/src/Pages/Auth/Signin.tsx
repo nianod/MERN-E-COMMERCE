@@ -15,7 +15,7 @@ const Signin = () => {
     setError("");
    
     try {
-       await axios.post('http://localhost:8000/api/auth/request-login', {
+       await axios.post('http://localhost:7000/api/auth/request-otp', {
         email,
        })
         
