@@ -1,12 +1,33 @@
-import mongoose from "mongoose"
+                                                                                                                                                                                                                                                                import mongoose from "mongoose"
 
-const schema = new mongoose.Schema({
-    email: { type: String, required: true, unique: true},
-     otp: {type: String},
-     expiresAt: {type: Date},
-    role: {type: String, enum: ['user', 'admin'], default: 'user'}
-})
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true
+    },
 
-const User = mongoose.model("User", schema)  
+    otp: {
+      type: String,
+      default: null
+    },
 
+    expiresAt: {
+      type: Date,
+      default: null
+    },
+
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user"
+    }
+  },
+  { timestamps: true }
+)
+
+const User = mongoose.model("User", userSchema)
 export default User
