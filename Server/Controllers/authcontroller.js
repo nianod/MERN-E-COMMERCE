@@ -17,25 +17,31 @@ export const checkIfUserExists = async(req, res) => {
 }
 
 
-export const createUser = async(req, res) => {
+export const updateUser = async(req, res) => {
   try{
-    const { email, firstName, lastName, mobileNumber} = req.body
+    const userId = req.user.id
+    const { firstName, lastName, mobileNumber} = req.body
 
-    const existingUser = await User.findOne({email})
+     
 
-    if(existingUser) {
-      return res.status(400).json({message: "user already exists"})
-    }
+    
 
-    const user = User.create({
-      email,
+    const user = await User.findOneAndUpdate(
+      {userId},
+      {
       firstName,
       lastName,
       mobileNumber
-    })
+      },
+      {new: true}
+    )
+
+    if(!user) {
+      return res.status(404).json({message: "User not found"})
+    }
 
     res.status(201).json({
-      message: "User created",
+      message: "User updated",
       userId: user._id
     })
   } catch(err) {

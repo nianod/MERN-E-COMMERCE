@@ -1,7 +1,12 @@
-                                                                                                                                                                                                                                                                import mongoose from "mongoose"
+import mongoose from "mongoose"
 
-const userSchema = new mongoose.Schema(
-  {
+const userSchema = new mongoose.Schema({
+
+    firstName: { type: String },
+    lastName: { type: String },
+     mobileNumber: { type: String },
+
+
     email: {
       type: String,
       required: true,
