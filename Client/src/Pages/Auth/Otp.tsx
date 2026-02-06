@@ -6,7 +6,7 @@ type InputProps = {
   onComplete: (pin: string) => void;
 };
 
-const Otp = ({ length = 4, onComplete }: InputProps) => {
+const Otp = ({ length = 6, onComplete }: InputProps) => {
   const inputRef = useRef<HTMLInputElement[]>(Array(length).fill(null));
   const [OTP, setOTP] = useState<string[]>(Array(length).fill(''));
   const [loading, setLoading] = useState<boolean>(false)

@@ -37,7 +37,7 @@ const Credentials = () => {
   try {
 
     await axios.post(
-      "http://localhost:8000/api/auth/create-user",
+      "http://localhost:8000/api/auth/update-user",
       {
         email,
         firstName,
