@@ -15,13 +15,20 @@ const Signin = () => {
     setError("");
    
     try {
-       await axios.post('http://localhost:8000/api/auth/request-otp', {
+      const res =  await axios.post('http://localhost:8000/api/auth/check-user', {
         email,
        })
         
-       navigate ('/otp', {state: {email}})
-       // navigate('/dashboard')
-      
+       if(res.data.exists){
+        await axios.post('http://localhost:8000/api/auth/request-otp', {
+          email
+        })
+        navigate ('/otp', {state: {email}})
+       } else {
+        navigate ('/credentials', {state: {email}})
+       }
+       
+          
   
     } catch (err: any) {
       setError(err.response?.data || err.message)

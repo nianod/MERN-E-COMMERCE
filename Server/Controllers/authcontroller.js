@@ -6,6 +6,43 @@ const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString()
 }
 
+export const checkIfUserExists = async(req, res) => {
+  const {email} = req.body
+
+  const existingUser = await User.findOne({email})
+
+  res.json({
+    exists: !!existingUser
+  })
+}
+
+
+export const createUser = async(req, res) => {
+  try{
+    const { email, firstName, lastName, mobileNumber} = req.body
+
+    const existingUser = await User.findOne({email})
+
+    if(existingUser) {
+      return res.status(400).json({message: "user already exists"})
+    }
+
+    const user = User.create({
+      email,
+      firstName,
+      lastName,
+      mobileNumber
+    })
+
+    res.status(201).json({
+      message: "User created",
+      userId: user._id
+    })
+  } catch(err) {
+    console.log('there is an error', err.message)
+    return res.status(500).json({message: "server error"})
+  }
+}
 
 export const verifyOTP = async (req, res) => {
   const {email, otp} = req.body
@@ -38,30 +75,25 @@ export const verifyOTP = async (req, res) => {
 }
 
  
-
 export const requestOTP = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.body
 
-  const otp = generateOTP();
+  const user = await User.findOne({ email })
+  if (!user) {
+    return res.status(404).json({ message: "User not found" })
+  }
+
+  const otp = generateOTP()
   const hashedOtp = crypto
     .createHash("sha256")
     .update(otp)
-    .digest("hex");
+    .digest("hex")
 
-  const expiry = Date.now() + 5 * 60 * 1000;  
+  user.otp = hashedOtp
+  user.expiresAt = Date.now() + 5 * 60 * 1000
+  await user.save()
 
-  let existingUser = await User.findOne({ email });
+  console.log("OTP:", otp)  
 
-  if (!existingUser) {
-    existingUser = await User.create({ email });
-  }
-
-  existingUser.otp = hashedOtp;
-  existingUser.expiresAt = expiry;
-  await existingUser.save();
-
- 
-  console.log("OTP:", otp);  
-
-  res.json({ message: "OTP sent" });
-};
+  res.json({ message: "OTP sent" })
+}

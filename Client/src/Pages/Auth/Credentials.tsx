@@ -2,7 +2,8 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Credentials = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -11,6 +12,13 @@ const Credentials = () => {
   const [valid, setValid] = useState(true);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate()
+  const location = useLocation()
+  const email = location.state?.email
+
+  if(!email) {
+    navigate('/signin')
+    return null
+  }
   const handleChange = (value: string | undefined) => {
     const input = value || "";
     setMobileNumber(input);
@@ -22,13 +30,36 @@ const Credentials = () => {
     return numberPattern.test(mobileNumber);
   };
 
-  const submit = (e: React.FormEvent) => {
-    setLoading(true);
-    e.preventDefault();
-    if (!valid) return;
-    navigate('/otp')
-     
-  };
+ const submit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+
+    await axios.post(
+      "http://localhost:8000/api/auth/create-user",
+      {
+        email,
+        firstName,
+        lastName,
+        mobileNumber
+      }
+    );
+
+    await axios.post(
+      "http://localhost:8000/api/auth/request-otp",
+      { email }
+    );
+
+    navigate("/otp", { state: { email } });
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -115,8 +146,6 @@ const Credentials = () => {
               )}
             </button>
           </form>
-
-      
           <p className="text-center text-xs text-gray-400 mt-6">
             We'll send a verification code to your phone
           </p>
