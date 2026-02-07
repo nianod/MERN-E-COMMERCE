@@ -1,16 +1,29 @@
-import   { useRef, useState, KeyboardEvent, useEffect } from 'react';
+import { useRef, useState, KeyboardEvent, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 type InputProps = {
   length?: number;
-  onComplete: (pin: string) => void;
 };
 
-const Otp = ({ length = 6, onComplete }: InputProps) => {
+const Otp = ({ length = 6 }: InputProps) => {
   const inputRef = useRef<HTMLInputElement[]>(Array(length).fill(null));
   const [OTP, setOTP] = useState<string[]>(Array(length).fill(''));
-  const [loading, setLoading] = useState<boolean>(false)
- 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [resendLoading, setResendLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email;
+
+  
+  useEffect(() => {
+    if (!email) {
+      navigate('/signin');
+    }
+  }, [email, navigate]);
+
   useEffect(() => {
     inputRef.current[0]?.focus();
   }, []);
@@ -33,9 +46,9 @@ const Otp = ({ length = 6, onComplete }: InputProps) => {
       inputRef.current[index - 1]?.focus();
     }
 
- 
+  
     if (newPin.every((digit) => digit !== '')) {
-      onComplete(newPin.join(''));
+      handleVerifyOTP(newPin.join(''));
     }
   };
 
@@ -49,8 +62,8 @@ const Otp = ({ length = 6, onComplete }: InputProps) => {
       inputRef.current[index - 1]?.focus();
       e.preventDefault();
     }
-    
-    //  paste
+
+   
     if (e.key === 'v' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       navigator.clipboard.readText().then(text => {
@@ -62,79 +75,174 @@ const Otp = ({ length = 6, onComplete }: InputProps) => {
           }
         });
         setOTP(newPin);
-        
-         
+
         const lastFilledIndex = Math.min(digits.length - 1, length - 1);
         inputRef.current[lastFilledIndex]?.focus();
-         
+ 
         if (newPin.every(digit => digit !== '')) {
-          onComplete(newPin.join(''));
+          handleVerifyOTP(newPin.join(''));
         }
       });
     }
   };
 
-  const requestOtp = (e: any) => {
-    //Request otp
-    e.preventDefault()
-    setLoading(true)
-  }
+  const handleVerifyOTP = async (otpCode: string) => {
+    setLoading(true);
+    setError('');
 
-  const resendCode = () => {
-     //resend opt
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/api/auth/verify-otp',
+        {
+          email,
+          otp: otpCode
+        }
+      );
+
+   
+      localStorage.setItem('token', response.data.token);
+
+       
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
+
+     
+      navigate('/');
+
+    } catch (err) {
+      console.error(err);
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Invalid OTP. Please try again.');
+      } else {
+        setError('An error occurred. Please try again.');
+      }
+      
+      setOTP(Array(length).fill(''));
+      inputRef.current[0]?.focus();
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const handleManualSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const otpCode = OTP.join('');
+    
+    if (otpCode.length !== length) {
+      setError(`Please enter all ${length} digits`);
+      return;
+    }
+
+    handleVerifyOTP(otpCode);
+  };
+
+  const resendCode = async () => {
+    setResendLoading(true);
+    setError('');
+
+    try {
+      await axios.post(
+        'http://localhost:8000/api/auth/request-otp',
+        { email }
+      );
+
+       
+      setOTP(Array(length).fill(''));
+      inputRef.current[0]?.focus();
+
+       
+      alert('OTP has been resent to your email');
+
+    } catch (err) {
+      console.error(err);
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Failed to resend OTP');
+      }
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
+  if (!email) {
+    return null;
+  }
+
   return (
-    <div className="flex bg-white flex-col justify-center min-h-screen items-center ">
-      <div className='bg-white p-6 rounded shadow-md'>
-        <span className='text-sm text-gray-700 mb-3 flex justify-center'>Verify otp</span>
-      <div className="flex justify-center gap-3 mb-6 ">
-        {Array.from({ length }, (_, index) => (
-          <input
-            key={index}
-            type="text"
-            inputMode="numeric"
-            pattern="\d*"
-            maxLength={1}
-            value={OTP[index]}
-            onChange={(e) => handleTextChange(e.target.value, index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            ref={(ref) => (inputRef.current[index] = ref as HTMLInputElement)}
-            className="w-14 h-14 text-center text-2xl font-semibold 
-                       border-2 border-gray-300 rounded-lg 
-                       focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200
-                       transition-all duration-200
-                       hover:border-gray-400
-                       shadow-sm"
-            autoComplete="one-time-code"
-            aria-label={`Digit ${index + 1} of ${length}`}
-          />
-        ))}
-      </div>
-      
+    <div className="flex bg-gray-50 flex-col justify-center min-h-screen items-center px-4">
+      <div className='bg-white p-8 rounded-xl shadow-lg max-w-md w-full'>
+        <div className="text-center mb-8">
+          <h2 className='text-2xl font-semibold text-gray-800 mb-2'>Verify OTP</h2>
+          <p className='text-sm text-gray-600'>
+            We've sent a {length}-digit code to
+          </p>
+          <p className='text-sm font-medium text-gray-800 mt-1'>{email}</p>
+        </div>
+
+        <form onSubmit={handleManualSubmit}>
+          <div className="flex justify-center gap-3 mb-6">
+            {Array.from({ length }, (_, index) => (
+              <input
+                key={index}
+                type="text"
+                inputMode="numeric"
+                pattern="\d*"
+                maxLength={1}
+                value={OTP[index]}
+                onChange={(e) => handleTextChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                ref={(ref) => (inputRef.current[index] = ref as HTMLInputElement)}
+                className="w-12 h-12 sm:w-14 sm:h-14 text-center text-2xl font-semibold 
+                         border-2 border-gray-300 rounded-lg 
+                         focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                         transition-all duration-200
+                         hover:border-gray-400
+                         shadow-sm
+                         disabled:bg-gray-100 disabled:cursor-not-allowed"
+                autoComplete="one-time-code"
+                aria-label={`Digit ${index + 1} of ${length}`}
+                disabled={loading}
+              />
+            ))}
+          </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-600 text-center">{error}</p>
+            </div>
+          )}
+
           <button
-              onClick={requestOtp}
-              type="submit"
-              disabled={loading}
-              className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-700 hover:to-blue-800 active:scale-[0.99] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
-            >
-              {loading ? (
-                <div className="flex items-center justify-center gap-2">
-                   <Loader2 />
-                  Requesting...
-                </div>
-              ) : (
-                "Request otp"
-              )}
-            </button>
-      
-      <div className="mt-4 text-sm text-gray-600 text-center max-w-xs">
-        <p>Enter the {length}-digit code sent to your phone</p>
-          <button className='text-sm cursor-pointer text-blue-600' onClick={resendCode}>Resend code</button>
-      </div>
+            type="submit"
+            disabled={loading || OTP.some(digit => digit === '')}
+            className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-700 hover:to-blue-800 active:scale-[0.99] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <Loader2 className="animate-spin" />
+                Verifying...
+              </div>
+            ) : (
+              "Verify OTP"
+            )}
+          </button>
+        </form>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600 mb-2">
+            Didn't receive the code?
+          </p>
+          <button
+            className='text-sm font-medium cursor-pointer text-blue-600 hover:text-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+            onClick={resendCode}
+            disabled={resendLoading || loading}
+          >
+            {resendLoading ? 'Sending...' : 'Resend code'}
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Otp; 
+export default Otp;
