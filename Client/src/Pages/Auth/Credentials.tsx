@@ -36,8 +36,7 @@ const Credentials = () => {
     setLoading(true);
 
     try {
-      // ✅ FIXED: Use the new /register endpoint instead of /update-user
-      // This creates the user AND sends OTP in one call
+      
       await axios.post(
         "http://localhost:8000/api/auth/register",
         {
@@ -48,12 +47,12 @@ const Credentials = () => {
         }
       );
 
-      // Navigate to OTP page
+   
       navigate("/otp", { state: { email } });
 
     } catch (err) {
       console.error(err);
-      // TODO: Show error message to user
+       
       if (axios.isAxiosError(err)) {
         alert(err.response?.data?.message || "An error occurred");
       }
