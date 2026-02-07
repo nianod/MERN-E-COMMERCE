@@ -104,7 +104,7 @@ export const registerUserAndRequestOTP = async (req, res) => {
     user.expiresAt = new Date(Date.now() + 5 * 60 * 1000)
     await user.save()
 
-    console.log("OTP for", email, ":", otp)
+    //console.log("OTP for", email, ":", otp) Brooooooooooooooo am not leaking this
 
     res.json({ message: "OTP sent successfully" })
   } catch(err) {
