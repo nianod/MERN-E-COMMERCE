@@ -19,6 +19,7 @@ const Credentials = () => {
     navigate('/signin')
     return null
   }
+
   const handleChange = (value: string | undefined) => {
     const input = value || "";
     setMobileNumber(input);
@@ -30,36 +31,36 @@ const Credentials = () => {
     return numberPattern.test(mobileNumber);
   };
 
- const submit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
+    try {
+      // ✅ FIXED: Use the new /register endpoint instead of /update-user
+      // This creates the user AND sends OTP in one call
+      await axios.post(
+        "http://localhost:8000/api/auth/register",
+        {
+          email,
+          firstName,
+          lastName,
+          mobileNumber
+        }
+      );
 
-    await axios.post(
-      "http://localhost:8000/api/auth/update-user",
-      {
-        email,
-        firstName,
-        lastName,
-        mobileNumber
+      // Navigate to OTP page
+      navigate("/otp", { state: { email } });
+
+    } catch (err) {
+      console.error(err);
+      // TODO: Show error message to user
+      if (axios.isAxiosError(err)) {
+        alert(err.response?.data?.message || "An error occurred");
       }
-    );
-
-    await axios.post(
-      "http://localhost:8000/api/auth/request-otp",
-      { email }
-    );
-
-    navigate("/otp", { state: { email } });
-
-  } catch (err) {
-    console.log(err);
-  } finally {
-    setLoading(false);
-  }
-};
-
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -99,7 +100,7 @@ const Credentials = () => {
                   Last name
                 </label>
                 <input
-                required
+                  required
                   type="text"
                   className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                   value={lastName}
@@ -133,13 +134,13 @@ const Credentials = () => {
              
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !valid}
               className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-700 hover:to-blue-800 active:scale-[0.99] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
-                   <Loader2 />
-                  Verifying...
+                   <Loader2 className="animate-spin" />
+                  Processing...
                 </div>
               ) : (
                 "Continue"
@@ -147,7 +148,7 @@ const Credentials = () => {
             </button>
           </form>
           <p className="text-center text-xs text-gray-400 mt-6">
-            We'll send a verification code to your phone
+            We'll send a verification code to your email
           </p>
         </div>
       </div>
