@@ -68,9 +68,21 @@ export const registerUserAndRequestOTP = async (req, res) => {
     user.otp = hashedOtp
     user.expiresAt = new Date(Date.now() + 5 * 60 * 1000)
     await user.save()
+        try {
+      await sendOTPEmail(email, otp)
+      console.log(` OTP sent to: ${email}`)
+      console.log(` OTP (for dev): ${otp}`)  
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError)
+      // Delete the user if email fails
+      await User.findByIdAndDelete(user._id)
+      return res.status(500).json({ 
+        message: "Failed to send OTP email. Please check your email address and try again." 
+      })
+    }
 
      
-    console.log("OTP for new user", email, ":", otp)
+    // console.log("OTP for new user", email, ":", otp)
 
     res.status(201).json({ 
       message: "User created. OTP sent successfully"
@@ -103,6 +115,17 @@ export const registerUserAndRequestOTP = async (req, res) => {
     user.otp = hashedOtp
     user.expiresAt = new Date(Date.now() + 5 * 60 * 1000)
     await user.save()
+
+      try {
+      await sendOTPEmail(email, otp)
+      console.log(`OTP sent to: ${email}`)
+      console.log(` OTP (for dev): ${otp}`)  
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError)
+      return res.status(500).json({ 
+        message: "Failed to send OTP email. Please try again." 
+      })
+    }
 
     //console.log("OTP for", email, ":", otp) Brooooooooooooooo am not leaking this
 
