@@ -4,8 +4,8 @@ const host = process.env.EMAIL_HOST
 const port = process.env.EMAIL_PORT
 const userEmail = process.env.EMAIL_USER
 const password = process.env.EMAIL_PASS
-const CreateTransporter = () => {
-    return nodemailer.CreateTransporter({
+const createTransporter = () => {
+    return nodemailer.createTransporter({
         host: host,
         port: parseInt(port),
         secure: false,
@@ -156,19 +156,19 @@ This code will expire in 5 minutes.
 
 If you didn't request this code, please ignore this email.
 
-- Your E-Commerce App Team`, // Plain text fallback
+- Your E-Commerce App Team`, 
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Email sent successfully:', info.messageId);
-    console.log('📧 Preview URL:', nodemailer.getTestMessageUrl(info));
+    console.log(' Email sent successfully:', info.messageId);
+    console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
     
     return { success: true, messageId: info.messageId };
     
   } catch (error) {
-    console.error('❌ Error sending email:', error);
+    console.error(' Error sending email:', error);
     
-    // Better error logging
+     
     if (error.code === 'EAUTH') {
       console.error('Authentication failed. Check your EMAIL_USER and EMAIL_PASS in .env');
     } else if (error.code === 'ESOCKET') {
@@ -179,15 +179,14 @@ If you didn't request this code, please ignore this email.
   }
 };
 
-// Test email configuration (optional - for debugging)
-export const testEmailConfig = async () => {
+ export const testEmailConfig = async () => {
   try {
     const transporter = createTransporter();
     await transporter.verify();
-    console.log('✅ Email configuration is valid');
+    console.log(' Email configuration is valid');
     return true;
   } catch (error) {
-    console.error('❌ Email configuration error:', error);
+    console.error(' Email configuration error:', error);
     return false;
   }
 };

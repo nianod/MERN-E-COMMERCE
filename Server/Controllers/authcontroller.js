@@ -1,7 +1,7 @@
 import User from "../Models/User.js"
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-
+import { sendOTPEmail } from "../services/email.js"
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString()
 }
