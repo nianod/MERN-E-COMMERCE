@@ -5,13 +5,13 @@ const port = process.env.EMAIL_PORT
 const userEmail = process.env.EMAIL_USER
 const password = process.env.EMAIL_PASS
 const createTransporter = () => {
-    return nodemailer.createTransporter({
+    return nodemailer.createTransport({
         host: host,
         port: parseInt(port),
         secure: false,
         auth: {
             user: userEmail,
-            password: password
+            pass: password
         }
     })
 }
