@@ -1,7 +1,8 @@
 import express from "express"
 import { verifyOTP, requestOTP, checkIfUserExists, updateUser, registerUserAndRequestOTP} from "../Controllers/authcontroller.js"
 import { verifyToken } from "../Middlewares/verifytoken.js"
- 
+import { limiter, authLimiter } from "../Middlewares/rateLimiter.js" 
+
 const router = express.Router()
 
 // Public routes  
