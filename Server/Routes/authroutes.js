@@ -7,7 +7,9 @@ const router = express.Router()
 
 // Public routes  
 router.post('/check-user', authLimiter, checkIfUserExists)
-router.post('/register', authLimiter, registerUserAndRequestOTP)   
+router.post('/register', authLimiter, registerUserAndRequestOTP)
+
+
 router.post('/request-otp', limiter, requestOTP)  
 router.post('/verify-otp', limiter, verifyOTP)
 
@@ -19,4 +21,3 @@ router.get("/protected", verifyToken, (req, res) => {
 
   
 export default router
-  
