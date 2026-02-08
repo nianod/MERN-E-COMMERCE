@@ -16,4 +16,5 @@ router.get("/protected", verifyToken, (req, res) => {
   res.json({ message: `Welcome, user ${req.user.id}` });
 });
 
+  
 export default router

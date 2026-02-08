@@ -1,28 +1,30 @@
 import nodemailer from 'nodemailer'
-
-const host = process.env.EMAIL_HOST
-const port = process.env.EMAIL_PORT
-const userEmail = process.env.EMAIL_USER
-const password = process.env.EMAIL_PASS
+ 
+const sender = process.env.EMAIL_FROM;
 const createTransporter = () => {
-    return nodemailer.createTransport({
-        host: host,
-        port: parseInt(port),
-        secure: false,
-        auth: {
-            user: userEmail,
-            pass: password
-        }
-    })
+   
+  const host = process.env.EMAIL_HOST;
+  const port = process.env.EMAIL_PORT;
+  const userEmail = process.env.EMAIL_USER;
+  const password = process.env.EMAIL_PASS;
+
+  return nodemailer.createTransport({
+    host,
+    port: parseInt(port || '587'),
+    secure: false,
+    auth: { user: userEmail, pass: password },
+    tls: { rejectUnauthorized: false }
+  });
 }
 
+ 
 // Send OTP email
 export const sendOTPEmail = async (email, otp) => {
   try {
     const transporter = createTransporter();
 
     const mailOptions = {
-      from: `"Your E-Commerce App" <${process.env.EMAIL_FROM}>`,
+      from: `"Your E-Commerce App" <${sender}>`,
       to: email,
       subject: 'Your OTP Verification Code',
       html: `
@@ -113,7 +115,7 @@ export const sendOTPEmail = async (email, otp) => {
         <body>
           <div class="container">
             <div class="header">
-              <h1>🔐 Verification Code</h1>
+              <h1>Verification Code</h1>
             </div>
             
             <div class="content">
@@ -129,9 +131,9 @@ export const sendOTPEmail = async (email, otp) => {
               </div>
               
               <div class="info-box">
-                <p>⏰ <strong>This code will expire in 5 minutes</strong></p>
-                <p>🔒 For security reasons, do not share this code with anyone</p>
-                <p>❌ If you didn't request this code, please ignore this email</p>
+                <p> <strong>This code will expire in 5 minutes</strong></p>
+                <p>For security reasons, do not share this code with anyone</p>
+                <p>If you didn't request this code, please ignore this email</p>
               </div>
               
               <p style="margin-top: 30px; font-size: 14px; color: #666;">
@@ -190,3 +192,5 @@ If you didn't request this code, please ignore this email.
     return false;
   }
 };
+ 
+ 

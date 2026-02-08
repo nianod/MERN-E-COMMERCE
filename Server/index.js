@@ -1,19 +1,19 @@
-import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config() 
+import express from 'express'
 import mongoose from 'mongoose';
-
  
 import productRoute from './Routes/productRoute.js'
- import Product from './Models/Product.models.js'
- import cors from 'cors'
- import authroutes from './Routes/authroutes.js'
+import Product from './Models/Product.models.js'
+import cors from 'cors'
+import authroutes from './Routes/authroutes.js'
 
 const app = express()
 app.use(cors({
     origin: '*',
     credentials: false
 }))
-dotenv.config() 
+
 
 
 app.use(express.json()) //Middleware
