@@ -6,10 +6,10 @@ import { limiter, authLimiter } from "../Middlewares/rateLimiter.js"
 const router = express.Router()
 
 // Public routes  
-router.post('/check-user', checkIfUserExists)
-router.post('/register', registerUserAndRequestOTP)   
-router.post('/request-otp', requestOTP)  
-router.post('/verify-otp', verifyOTP)
+router.post('/check-user', authLimiter, checkIfUserExists)
+router.post('/register', authLimiter, registerUserAndRequestOTP)   
+router.post('/request-otp', limiter, requestOTP)  
+router.post('/verify-otp', limiter, verifyOTP)
 
 // Protected routes  
 router.post('/update-user', verifyToken, updateUser)
@@ -19,3 +19,4 @@ router.get("/protected", verifyToken, (req, res) => {
 
   
 export default router
+  
