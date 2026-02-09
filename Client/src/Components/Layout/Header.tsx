@@ -69,12 +69,11 @@ const Header = () => {
             placeholder="Search for products, Brands, Categories..."
             className="p-2 pl-10 w-full rounded bg-[#414145] border-gray-300 text-[#f3e6f3] focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <FaSearch className="absolute left-4 text-blue-500 cursor-pointer" />
-          <button className="bg-amber-300 p-2 text-gray-700 font-semibold shadow-2xl rounded hover:bg-amber-400 transition duration-300">
+          <FaSearch className="  absolute left-4 text-blue-500 " />
+          <button className="cursor-pointer bg-amber-300 p-2 text-gray-700 font-semibold shadow-2xl rounded hover:bg-amber-400 transition duration-300">
             Search
           </button>
         </div>
-
       
         <div className="hidden md:flex items-center gap-4">
           <div className="flex flex-col text-sm mr-4">
