@@ -10,7 +10,7 @@ const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
-
+ 
 export const checkIfUserExists = async(req, res) => {
   try {
     const {email} = req.body
@@ -70,8 +70,8 @@ export const registerUserAndRequestOTP = async (req, res) => {
     await user.save()
         try {
       await sendOTPEmail(email, otp)
-      console.log(` OTP sent to: ${email}`)
-      console.log(` OTP (for dev): ${otp}`)  
+      // console.log(` OTP sent to: ${email}`)
+      // console.log(` OTP (for dev): ${otp}`)  
     } catch (emailError) {
       console.error("Failed to send email:", emailError)
       // Delete the user if email fails
@@ -235,3 +235,4 @@ export const updateUser = async(req, res) => {
     return res.status(500).json({message: "Server error"})
   }
 }
+
