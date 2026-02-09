@@ -162,8 +162,7 @@ If you didn't request this code, please ignore this email.
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(' Email sent successfully:', info.messageId);
-    console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
+ 
     
     return { success: true, messageId: info.messageId };
     
