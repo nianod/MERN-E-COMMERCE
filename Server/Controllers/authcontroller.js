@@ -118,8 +118,8 @@ export const registerUserAndRequestOTP = async (req, res) => {
 
       try {
       await sendOTPEmail(email, otp)
-      console.log(`OTP sent to: ${email}`)
-      console.log(` OTP (for dev): ${otp}`)  
+      // console.log(`OTP sent to: ${email}`)
+      // console.log(` OTP (for dev): ${otp}`)  
     } catch (emailError) {
       console.error("Failed to send email:", emailError)
       return res.status(500).json({ 
