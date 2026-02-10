@@ -35,14 +35,23 @@ const AdminAuth = () => {
       <div className="bg-gray-200 gap-7 flex flex-col p-10 rounded">
         <h1 className="font-semibold">Admin Page - Only accessible to Admins</h1>
         <form onSubmit={submit}>
-          <p>Verify Your authorization by entering a passcode below</p>
-          <label className="font-bold block mt-2">Passcode:</label>
+          <p>Verify Your authorization by entering a credentials below</p>
+          <div>
+          <label className="font-bold block mt-2">Admin Id:</label>
           <input
             type="password"
             value={passcode}
             onChange={(e) => setPasscode(e.target.value)}
             className="border border-gray-500 p-2 rounded outline-blue-700"
           />
+          <label className="font-bold mt-2 block">Passcode:</label>
+           <input
+            type="password"
+            value={passcode}
+            onChange={(e) => setPasscode(e.target.value)}
+            className="border border-gray-500 p-2 rounded outline-blue-700"
+          />
+          </div>
 
           {error && <p className="text-red-600 mt-1">{error}</p>}
           {success && <p className="text-green-600 mt-1">{success}</p>}
