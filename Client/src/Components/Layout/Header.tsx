@@ -1,32 +1,40 @@
 import { useState, useEffect } from "react";
-import { FaSearch, FaUser, FaUserCircle, FaCartPlus, FaBars, FaTimes, FaUserAlt } from "react-icons/fa";
+import { FaSearch, FaUser, FaCartPlus, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Country } from "country-state-city";
-import SideCart from "../SideCart";
+ import SideCart from "../SideCart";
 import Home from "../../Pages/Home";
 import type { Product } from "../../Types/Product";
 import Logout from "../Logout";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import type { User } from "../../Types/User";
+
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
-  const [countries, SetCountry] = useState<any>(Country.getAllCountries());
-  const [selectedCountry, setSelectedCountry] = useState<any>(null);
   const [openCart, setOpenCart] = useState<boolean>(false);
   const [cartCount, SetCartCount] = useState<number>(0);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [searchItem, setSearchItem] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [leave, setLeave] = useState<boolean>(false)
+  const [user, setUser] = useState<User | null >(null)
 
-  
+  const { id } = useParams()
+
+  const fetchUserDetails = async() => {
+    try {
+    const response = await axios.get<User>(`/api/user/${id}`)
+    setUser(response.data)
+    } catch(error) {
+      console.log('error fetching users ', error)
+    }
+  }
+  useEffect(() => {
+    fetchUserDetails()
+  }, [])
+
  
-
-  const handleCountryChange = (isoCode: string) => {
-    const country = countries.find((c: any) => c.isoCode === isoCode);
-    setSelectedCountry(country);
-  };
-
   const headerStuff = {
     logo: "/download.jpg",
     title: "ARNOLD-SELLERS",
@@ -148,23 +156,7 @@ const Header = () => {
               />
               <FaSearch className="absolute left-3 top-3 text-blue-500" />
             </div>
-
-             
-            <div className="mb-4">
-              <p className="text-gray-100 text-sm mb-1">Deliver to:</p>
-              <select
-                name="country"
-                className="w-full p-2 rounded bg-[#414145] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => handleCountryChange(e.target.value)}
-              >
-                <option value="Kenya">Kenya</option>
-                {countries.map((country: any) => (
-                  <option key={country.isoCode} value={country.isoCode}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+ 
           </div>
 
    
