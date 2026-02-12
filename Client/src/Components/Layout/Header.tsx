@@ -31,7 +31,9 @@ const Header = () => {
     }
   }
   useEffect(() => {
+    if(id) {
     fetchUserDetails()
+    }
   }, [])
 
  
@@ -94,7 +96,7 @@ const Header = () => {
             <button className="cursor-pointer p-2 rounded hover:bg-[#292326]">
               <p className="text-white flex gap-2 items-center">
                 <span className="bg-amber-600 rounded-full p-1"><FaUser /> </span>
-                Arnold
+              {user?.firstName}
                 </p>
             </button>
           </div>
