@@ -3,4 +3,7 @@ import { findSpecificUser, findUser } from "../Controllers/profile"
 
 const router = express.router()
 
-router
+router.get('/', findUser)
+router.get('/:id', findSpecificUser)
+
+export default router
