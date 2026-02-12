@@ -27,7 +27,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, searchItem, setCartItems
     } catch (error) {
       console.error("error occurred", error)
     }
-  } 
+  }  
 
   useEffect(() => {
     fetchProducts()
