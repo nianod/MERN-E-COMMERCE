@@ -1,7 +1,7 @@
-import express from express
-import { findSpecificUser, findUser } from "../Controllers/profile"
+import express from 'express'
+import { findSpecificUser, findUser } from "../Controllers/profile.js"
 
-const router = express.router()
+const router = express.Router()
 
 router.get('/', findUser)
 router.get('/:id', findSpecificUser)

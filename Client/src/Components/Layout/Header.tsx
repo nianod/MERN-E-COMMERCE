@@ -6,6 +6,7 @@ import SideCart from "../SideCart";
 import Home from "../../Pages/Home";
 import type { Product } from "../../Types/Product";
 import Logout from "../Logout";
+import axios from "axios";
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
@@ -16,14 +17,10 @@ const Header = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [searchItem, setSearchItem] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [leave, setLeave] = useState<boolean>(false)
 
   
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
-  }, []);
+ 
 
   const handleCountryChange = (isoCode: string) => {
     const country = countries.find((c: any) => c.isoCode === isoCode);
@@ -75,48 +72,8 @@ const Header = () => {
           </button>
         </div>
       
-        <div className="hidden md:flex items-center gap-4">
-          <div className="flex flex-col text-sm mr-4">
-            <p className="text-gray-100">Deliver to:</p>
-            <span className="font-bold text-white flex items-center gap-1">
-              <select
-                name="country"
-                className="focus:outline-none cursor-pointer max-w-[100px] bg-transparent"
-                onChange={(e) => handleCountryChange(e.target.value)}
-              >
-                <option value="Kenya">Kenya</option>
-                {countries.map((country: any) => (
-                  <option className="text-black" key={country.isoCode} value={country.isoCode}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-            </span>
-          </div>
-
-          {!isAuthenticated ? (
-            <div className="flex gap-3">
-              <Link
-                to="/login"
-                className="flex items-center gap-2 px-3 py-2 rounded bg-red-600 text-white font-bold hover:bg-red-700 transition duration-300 text-sm"
-              >
-                Sign In <FaUser />
-              </Link>
-              <Link
-                to="/register"
-                className="flex items-center gap-2 px-3 py-2 rounded bg-blue-600 text-white font-bold hover:bg-blue-700 transition duration-300 text-sm"
-              >
-                Sign Up <FaUserCircle />
-              </Link>
-            </div>
-          ): (
-            <button
-             onClick={() => setLeave(true)}
-             className="text-white cursor-pointer"><FaUserAlt /></button>
-          )}
-
-          
-          <button
+        <div className="hidden md:flex items-center gap-7">
+                     <button
             className="ml-4 relative cursor-pointer text-white text-2xl"
             onClick={() => setOpenCart(true)}
           >
@@ -125,7 +82,14 @@ const Header = () => {
               {cartCount}
             </span>
           </button>
-        </div>
+
+            <button className="cursor-pointer p-2 rounded hover:bg-[#292326]">
+              <p className="text-white flex gap-2 items-center">
+                <span className="bg-amber-600 rounded-full p-1"><FaUser /> </span>
+                Arnold
+                </p>
+            </button>
+          </div>
 
         
         <div className="flex md:hidden items-center gap-4">
@@ -203,25 +167,7 @@ const Header = () => {
             </div>
           </div>
 
-          
-          {!isAuthenticated && (
-            <div className="p-4 space-y-4">
-              <Link
-                to="/login"
-                className="flex items-center gap-3 px-4 py-3 rounded bg-red-600 text-white font-bold hover:bg-red-700 transition duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <FaUser /> Sign In
-              </Link>
-              <Link
-                to="/register"
-                className="flex items-center gap-3 px-4 py-3 rounded bg-blue-600 text-white font-bold hover:bg-blue-700 transition duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <FaUserCircle /> Sign Up
-              </Link>
-            </div>
-          )}
+   
         </div>
       </div>
 
