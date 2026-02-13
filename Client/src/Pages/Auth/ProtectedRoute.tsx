@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) return setIsValid(false);
-        const apiUrl = import.meta.env.HEROKU_URL
+        const apiUrl = import.meta.env.VITE_HEROKU_URL
         const res = await axios.get(`${apiUrl}|/api/auth/protected`, {
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -14,8 +14,9 @@ const Signin = () => {
     setLoading(true);
     setError("");
    
+  
     try {
-      const apiUrl = import.meta.env.HEROKU_URL
+      const apiUrl = import.meta.env.VITE_HEROKU_URL
       const res =  await axios.post(`${apiUrl}/api/auth/check-user`, {
         email,
        })

@@ -88,7 +88,7 @@ const Otp = ({ length = 6 }: InputProps) => {
       });
     }
   };
-   const apiUrl = import.meta.env.HEROKU_URL
+   const apiUrl = import.meta.env.VITE_HEROKU_URL
   const handleVerifyOTP = async (otpCode: string) => {
     setLoading(true);
     setError('');
