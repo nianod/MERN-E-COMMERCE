@@ -15,12 +15,13 @@ const Signin = () => {
     setError("");
    
     try {
-      const res =  await axios.post('http://localhost:8000/api/auth/check-user', {
+      const apiUrl = import.meta.env.HEROKU_URL
+      const res =  await axios.post(`${apiUrl}/api/auth/check-user`, {
         email,
        })
         
        if(res.data.exists){
-        await axios.post('http://localhost:8000/api/auth/request-otp', {
+        await axios.post(`${apiUrl}/api/auth/request-otp`, {
           email
         })
         navigate ('/otp', {state: {email}})

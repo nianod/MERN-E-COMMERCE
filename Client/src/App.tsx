@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 import Home from "./Pages/Home";
 import Layout from "./Components/Layout/Layout";
 import Signin from "./Pages/Auth/Signin";
@@ -16,16 +17,41 @@ import EntireCart from "./Components/EntireCart";
 import ProtectedRoute from "./Pages/Auth/ProtectedRoute"
 import Credentials from "./Pages/Auth/Credentials";
 import Otp from "./Pages/Auth/Otp";
+import type { Product } from "./Types/Product"
  
 const App = () => {
+  const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [searchItem, setSearchItem] = useState("");
+
   return (
     <Router>
       <Routes>
          <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
+            <Route 
+              path="/" 
+              element={
+                <Home 
+                  cartCount={cartCount}
+                  setCartCount={setCartCount}
+                  cartItems={cartItems}
+                  setCartItems={setCartItems}
+                  searchItem={searchItem}
+                  setSearchItem={setSearchItem}
+                />
+              } 
+            />
           </Route>
-          <Route path="/entirecart" element={<EntireCart />} />
+          <Route 
+            path="/entirecart" 
+            element={
+              <EntireCart 
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+              />
+            } 
+          />
         </Route>
 
         <Route path="/credentials" element={<Credentials />} />          

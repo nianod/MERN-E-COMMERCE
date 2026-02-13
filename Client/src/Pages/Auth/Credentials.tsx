@@ -36,9 +36,9 @@ const Credentials = () => {
     setLoading(true);
 
     try {
-      
+      const apiUrl = import.meta.env.HEROKU_URL
       await axios.post(
-        "http://localhost:8000/api/auth/register",
+        `${apiUrl}/api/auth/register`,
         {
           email,
           firstName,

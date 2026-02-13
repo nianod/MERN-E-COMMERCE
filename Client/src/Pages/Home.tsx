@@ -21,7 +21,8 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, searchItem, setCartItems
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get<Product[]>("http://localhost:8000/api/products")
+      const apiUrl = import.meta.env.HEROKU_URL
+      const response = await axios.get<Product[]>(`${apiUrl}/api/products`)
       setProducts(response.data)
       console.log(response.data)
     } catch (error) {

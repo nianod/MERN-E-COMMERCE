@@ -1,4 +1,5 @@
-import { useRef, useState, KeyboardEvent, useEffect } from 'react';
+import { useRef, useState,  useEffect } from 'react';
+import type {KeyboardEvent} from 'react'
 import { Loader2 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -8,7 +9,8 @@ type InputProps = {
 };
 
 const Otp = ({ length = 6 }: InputProps) => {
-  const inputRef = useRef<HTMLInputElement[]>(Array(length).fill(null));
+ const inputRef = useRef<(HTMLInputElement | null)[]>([]);
+
   const [OTP, setOTP] = useState<string[]>(Array(length).fill(''));
   const [loading, setLoading] = useState<boolean>(false);
   const [resendLoading, setResendLoading] = useState<boolean>(false);
@@ -16,6 +18,7 @@ const Otp = ({ length = 6 }: InputProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email;
+  
 
   
   useEffect(() => {
@@ -85,14 +88,15 @@ const Otp = ({ length = 6 }: InputProps) => {
       });
     }
   };
-
+   const apiUrl = import.meta.env.HEROKU_URL
   const handleVerifyOTP = async (otpCode: string) => {
     setLoading(true);
     setError('');
 
     try {
+     
       const response = await axios.post(
-        'http://localhost:8000/api/auth/verify-otp',
+        `${apiUrl}/api/auth/verify-otp`,
         {
           email,
           otp: otpCode
@@ -143,7 +147,7 @@ const Otp = ({ length = 6 }: InputProps) => {
 
     try {
       await axios.post(
-        'http://localhost:8000/api/auth/request-otp',
+        `${apiUrl}/api/auth/request-otp`,
         { email }
       );
 
@@ -191,8 +195,9 @@ const Otp = ({ length = 6 }: InputProps) => {
                 value={OTP[index]}
                 onChange={(e) => handleTextChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                ref={(ref) => (inputRef.current[index] = ref as HTMLInputElement)}
-                className="w-12 h-12 sm:w-14 sm:h-14 text-center text-2xl font-semibold 
+               ref={(ref) => { inputRef.current[index] = ref;}}
+
+                 className="w-12 h-12 sm:w-14 sm:h-14 text-center text-2xl font-semibold 
                          border-2 border-gray-300 rounded-lg 
                          focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200
                          transition-all duration-200
