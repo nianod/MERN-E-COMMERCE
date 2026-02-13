@@ -21,7 +21,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, searchItem, setCartItems
 
   const fetchProducts = async () => {
     try {
-      const apiUrl = import.meta.env.HEROKU_URL
+      const apiUrl = import.meta.env.VITE_HEROKU_URL
       const response = await axios.get<Product[]>(`${apiUrl}/api/products`)
       setProducts(response.data)
       console.log(response.data)
@@ -34,10 +34,9 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, searchItem, setCartItems
     fetchProducts()
   }, [])
 
-const filteredItems = products.filter(product =>
+const filteredItems = (Array.isArray(products) ? products : []).filter(product =>
   (product.name ?? "").toLowerCase().includes((searchItem ?? "").toLowerCase())
 );
-
   const [play] = useSound("/mixkit-mouse-click-close-1113.wav")
   
   return (
