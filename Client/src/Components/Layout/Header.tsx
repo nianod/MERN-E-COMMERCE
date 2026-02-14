@@ -6,7 +6,6 @@ import Home from "../../Pages/Home";
 import type { Product } from "../../Types/Product";
 import Logout from "../Logout";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import type { User } from "../../Types/User";
 
 const Header = () => {
