@@ -109,9 +109,10 @@ const Otp = ({ length = 6 }: InputProps) => {
        
       if (response.data.user) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        console.log("dopamine yooooooooohhh")
       }
 
-     
+     console.log('dopaminie nuke')
       navigate('/');
 
     } catch (err) {
