@@ -26,7 +26,7 @@ const Home: React.FC<CartCountProps> = ({ setCartCount, searchItem, setCartItems
       setProducts(response.data)
       console.log(response.data)
     } catch (error) {
-      console.error("error occurred", error)
+      console.error("error occurred", error) 
     }
   }  
 
@@ -41,7 +41,8 @@ const filteredItems = (Array.isArray(products) ? products : []).filter(product =
   
   return (
     <div className="flex items-center justify-center flex-col overflow-x-hidden mt-16">
-      <div className="grid md:grid-cols-6 sm:grid-cols-1 gap-9 px-3 py-5">   
+     <div className="grid grid-cols-2 md:grid-cols-5 gap-9 px-3 py-5">
+
         {filteredItems.map((product) => (
           <div key={product._id}>
             <img 
