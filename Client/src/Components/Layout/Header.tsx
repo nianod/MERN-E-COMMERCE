@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { FaSearch, FaUser, FaCartPlus, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
- import SideCart from "../SideCart";
+import SideCart from "../SideCart";
 import Home from "../../Pages/Home";
 import type { Product } from "../../Types/Product";
 import Logout from "../Logout";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import type { User } from "../../Types/User";
-
 
 const Header = () => {
   const [search, setSearch] = useState<string>("");
@@ -17,26 +15,46 @@ const Header = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [searchItem, setSearchItem] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [leave, setLeave] = useState<boolean>(false)
-  const [user, setUser] = useState<User | null >(null)
+  const [leave, setLeave] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loadingUser, setLoadingUser] = useState<boolean>(true);
 
-  const { id } = useParams()
+  const token = localStorage.getItem("token");
 
-  const fetchUserDetails = async() => {
+  const fetchCurrentUser = async () => {
+    if (!token) {
+      setLoadingUser(false);
+      return;
+    }
+
     try {
-    const response = await axios.get<User>(`/api/user/${id}`)
-    setUser(response.data)
-    } catch(error) {
-      console.log('error fetching users ', error)
-    }
-  }
-  useEffect(() => {
-    if(id) {
-    fetchUserDetails()
-    }
-  }, [])
+      const apiUrl = import.meta.env.VITE_HEROKU_URL;
 
- 
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+        setLoadingUser(false);
+        return;
+      }
+
+      const response = await axios.get(`${apiUrl}/api/user/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUser(response.data);
+    } catch (error) {
+      console.log("User fetch failed:", error);
+    } finally {
+      setLoadingUser(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
+
+  const pend = () => {
+    alert('This feature is currently under development. Stay tuned for updates!');
+  }
   const headerStuff = {
     logo: "/download.jpg",
     title: "ARNOLD-SELLERS",
@@ -46,7 +64,7 @@ const Header = () => {
     <>
       <div className="flex items-center justify-between top-0 fixed w-full bg-[#382d33] px-4 sm:px-6 py-3 shadow-md z-50">
         <button
-          className="md:hidden text-white text-xl"
+          className="md:hidden cursor-pointer text-white text-xl"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -67,7 +85,6 @@ const Header = () => {
           </Link>
         </div>
 
-
         <div className="hidden md:flex flex-1 mx-4 lg:mx-8 relative gap-2 items-center max-w-lg">
           <input
             type="text"
@@ -81,9 +98,10 @@ const Header = () => {
             Search
           </button>
         </div>
+
       
         <div className="hidden md:flex items-center gap-7">
-                     <button
+          <button
             className="ml-4 relative cursor-pointer text-white text-2xl"
             onClick={() => setOpenCart(true)}
           >
@@ -93,26 +111,23 @@ const Header = () => {
             </span>
           </button>
 
-            <button className="cursor-pointer p-2 rounded hover:bg-[#292326]">
-              <p className="text-white flex gap-2 items-center">
-                <span className="bg-amber-600 rounded-full p-1"><FaUser /> </span>
-              {user?.firstName}
-                </p>
-            </button>
-          </div>
-
-        
-        <div className="flex md:hidden items-center gap-4">
-          <button
-            className="text-white text-xl"
-            onClick={() => {
-              const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
-              searchInput?.focus();
-            }}
-          >
-            <FaSearch />
+          <button className="bg-[#22201b]  cursor-pointer p-2 rounded hover:bg-[#292326]" onClick={pend}>
+            <p className="text-white flex gap-2 items-center">
+              <span className="bg-amber-600 rounded-full p-1">
+                <FaUser />
+              </span>
+              {loadingUser ? (
+                <span className="text-sm animate-pulse">...</span>
+              ) : user?.firstName ? (
+                user.firstName
+              ) : (
+                "Guest"
+              )}
+            </p>
           </button>
+        </div>
 
+        <div className="flex md:hidden items-center gap-4">
           <button
             className="relative cursor-pointer text-white text-xl"
             onClick={() => setOpenCart(true)}
@@ -121,6 +136,18 @@ const Header = () => {
             <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
               {cartCount}
             </span>
+          </button>
+
+          <button className="text-white text-xl bg-[#22201b] cursor-pointer p-2 rounded hover:bg-[#3c3a3b]" onClick={pend}>
+            {loadingUser ? (
+              <span className="text-sm animate-pulse">...</span>
+            ) : user?.firstName ? (
+
+              <p className="font-semibold text-sm flex gap-2"><span className="bg-amber-600 rounded-full p-1"><FaUser /></span>{user.firstName}</p>
+            ) : (
+            
+              <span className="font-semibold text-sm">ARNOLD-SELLERS</span>
+            )}
           </button>
         </div>
 
@@ -131,7 +158,6 @@ const Header = () => {
           />
         )}
 
-        
         <div
           className={`fixed top-0 left-0 h-full w-64 bg-[#382d33] transform transition-transform duration-300 z-50 md:hidden ${
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -144,10 +170,11 @@ const Header = () => {
                 alt={headerStuff.title}
                 className="h-10 w-10 rounded-full object-cover"
               />
-              <span className="font-bold text-xl text-white">{headerStuff.title}</span>
+              <span className="font-bold text-xl text-white">
+                {headerStuff.title}
+              </span>
             </div>
 
-         
             <div className="relative mb-4">
               <input
                 type="text"
@@ -158,14 +185,16 @@ const Header = () => {
               />
               <FaSearch className="absolute left-3 top-3 text-blue-500" />
             </div>
- 
           </div>
-
-   
         </div>
       </div>
 
-      <SideCart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems} setCartItems={setCartItems} />
+      <SideCart
+        openCart={openCart}
+        setOpenCart={setOpenCart}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
       <Logout leave={leave} setLeave={setLeave} />
 
       <Home
